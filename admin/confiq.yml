@@ -1,0 +1,16 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "artikel"
+    label: "Artikel"
+    folder: "artikel"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Judul", name: "judul", widget: "string" }
+      - { label: "Isi", name: "isi", widget: "markdown" }
