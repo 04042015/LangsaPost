@@ -14,26 +14,25 @@
 
   <main>
     <h2>Tambah Artikel Baru</h2>
-    <form id="formArtikel">
-<div>
-  <label for="kategori">Kategori:</label>
-  <select id="kategori" name="kategori" required>
-    <option value="Teknologi">Teknologi</option>
-    <option value="Olahraga">Olahraga</option>
-    <option value="Politik">Politik</option>
-    <option value="Hiburan">Hiburan</option>
-    <option value="Internasional">Internasional</option>
-    <option value="Loker">Loker</option>
-  </select>
-</div>
+<form id="formArtikel">
+  <div>
+    <label for="kategori">Kategori:</label>
+    <select id="kategori" name="kategori" required>
+      <option value="Teknologi">Teknologi</option>
+      <option value="Olahraga">Olahraga</option>
+      <option value="Politik">Politik</option>
+      <option value="Hiburan">Hiburan</option>
+      <option value="Internasional">Internasional</option>
+      <option value="Loker">Loker</option>
+    </select>
+  </div>
 
-      <input type="text" id="judul" placeholder="Judul Artikel" required><br>
-      <input type="text" id="kategori" placeholder="Kategori" required><br>
-      <input type="text" id="tanggal" placeholder="Tanggal (cth: 17 Jun 2025)" required><br>
-      <input type="text" id="gambar" placeholder="URL Gambar" required><br>
-      <textarea id="deskripsi" placeholder="Deskripsi Artikel" required></textarea><br>
-      <button type="submit">Simpan Artikel</button>
-    </form>
+  <input type="text" id="judul" placeholder="Judul Artikel" required><br>
+  <input type="text" id="tanggal" placeholder="Tanggal (cth: 17 Jun 2025)" required><br>
+  <input type="text" id="gambar" placeholder="URL Gambar" required><br>
+  <textarea id="deskripsi" placeholder="Deskripsi Artikel" required></textarea><br>
+  <button type="submit">Simpan Artikel</button>
+</form>
 
     <h2>Daftar Artikel Tambahan</h2>
     <div id="listAdminArtikel"></div>
