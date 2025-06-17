@@ -1,0 +1,19 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images"
+public_folder: "/images"
+
+locale: 'id'
+
+collections:
+  - name: "artikel"
+    label: "Tulis Artikel Baru"
+    folder: "data"
+    create: true
+    slug: "{{year}}{{month}}{{day}}-{{slug}}"
+    fields:
+      - { label: "Judul", name: "judul", widget: "string" }
+      - { label: "Isi", name: "isi", widget: "markdown" }
+      - { label: "Kategori", name: "kategori", widget: "string" }
