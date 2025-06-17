@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Langsa Post</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="https://i.ibb.co/Nrc4f0B/favicon-langsa.png" />
+</head>
+<body>
+
+<div style="display: flex; align-items: center;">
+  <img src="logo.png" alt="LangsaPost Logo" style="height: 50px; margin-right: 10px;">
+  <h1 style="margin: 0;">Langsa <span style="color: red;">Post</span></h1>
+</div>
+
+<div style="margin: 20px 0;">
+  <input type="text" id="pencarian" placeholder="Cari artikel..." onkeyup="cariArtikel()" style="width: 100%; padding: 10px;">
+</div>
+
+
+
+
+  <header>
+    <div class="logo">Langsa <span>Post</span></div>
+    <nav>
+      <a href="#" class="active">Beranda</a>
+      <a href="#">News</a>
+      <a href="#">Teknologi</a>
+      <a href="#">Lifestyle</a>
+      <a href="#">Spotlight</a>
+      <a href="#">Otomotif</a>
+<a href="#" class="nav-link">Internasional</a>
+<a href="#" class="nav-link">Loker</a>
+</nav>
+    <button id="darkToggle">🌙</button>
+  </header>
+
+  <section class="slider" id="slider">
+    <!-- Slider artikel teratas -->
+  </section>
+
+  <main>
+    <h2>Berita Terbaru</h2>
+    <div id="artikelList" class="artikel-list"></div>
+
+    <h2>Terpopuler</h2>
+    <div id="artikelPopuler" class="artikel-populer"></div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Langsa Post. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
