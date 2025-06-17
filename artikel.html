@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Artikel - LangsaPost</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .judul { font-size: 24px; font-weight: bold; }
+    .isi { margin-top: 15px; }
+    .social-share { margin-top: 20px; }
+    .social-share a { margin-right: 10px; text-decoration: none; font-size: 20px; }
+  </style>
+</head>
+<body>
+  <div id="konten">
+    <p>Memuat artikel...</p>
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
+
+    fetch('artikel.json')
+      .then(response => response.json())
+      .then(data => {
+        const artikel = data.find(item => item.id === id);
+        const container = document.getElementById('konten');
+
+        if (artikel) {
+          document.title = artikel.judul + " - LangsaPost";
+          container.innerHTML = `
+            <div class="judul">${artikel.judul}</div>
+            <div class="isi">${artikel.isi}</div>
+            <div class="social-share">
+              <a href="https://facebook.com/sharer/sharer.php?u=${window.location.href}" target="_blank">🔵</a>
+              <a href="https://twitter.com/intent/tweet?url=${window.location.href}" target="_blank">🐦</a>
+              <a href="https://wa.me/?text=${window.location.href}" target="_blank">🟢</a>
+            </div>
+          `;
+        } else {
+          container.innerHTML = `<p>Artikel tidak ditemukan.</p>`;
+        }
+      })
+      .catch(err => {
+        document.getElementById('konten').innerHTML = `<p>Gagal memuat artikel.</p>`;
+        console.error(err);
+      });
+  </script>
+</body>
+</html>
