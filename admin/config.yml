@@ -5,6 +5,8 @@ backend:
 media_folder: "assets/images"
 public_folder: "/assets/images"
 
+site_url: https://langsapost.netlify.app
+
 collections:
   - name: "artikel"
     label: "Artikel"
