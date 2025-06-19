@@ -15,4 +15,8 @@ collections:
     slug: "{{slug}}"
     fields:
       - { label: "Judul", name: "title", widget: "string" }
-      - { label: "Isi", name: "body", widget: "markdown" }
+      - { label: "Tanggal", name: "date", widget: "datetime" }
+      - { label: "Penulis", name: "author", widget: "string", default: "Admin" }
+      - { label: "Kategori", name: "category", widget: "select", options: ["Nasional", "Internasional", "Lifestyle", "Healthy", "Zodiak", "Loker"] }
+      - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
+      - { label: "Isi Artikel", name: "body", widget: "markdown" }
