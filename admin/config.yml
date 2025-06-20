@@ -5,18 +5,17 @@ backend:
 media_folder: "assets/images"
 public_folder: "/assets/images"
 
-site_url: https://langsapost.netlify.app
-
 collections:
   - name: "artikel"
     label: "Artikel"
     folder: "artikel"
     create: true
     slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
     fields:
       - { label: "Judul", name: "title", widget: "string" }
       - { label: "Tanggal", name: "date", widget: "datetime" }
-      - { label: "Penulis", name: "author", widget: "string", default: "Admin" }
-      - { label: "Kategori", name: "category", widget: "select", options: ["Nasional", "Internasional", "Lifestyle", "Healthy", "Zodiak", "Loker"] }
-      - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
+      - { label: "Kategori", name: "kategori", widget: "select", options: ["nasional", "internasional", "healthy", "sport", "zodiak", "loker"] }
+      - { label: "Gambar Utama", name: "thumbnail", widget: "image", required: false }
       - { label: "Isi Artikel", name: "body", widget: "markdown" }
