@@ -26,25 +26,6 @@ const categories = [
     { name: "Zodiak", slug: "zodiak" }, 
 ]
 
-const articles = [ 
-  {
-    id: 1,
-    title: "Perkembangan Teknologi AI di Indonesia Tahun 2024", 
-    excerpt: "AI semakin berkembang pesat di Indonesia...", 
-    category: "Teknologi", 
-    author: "Admin", 
-    date: "2024-01-15", 
-    image: "/placeholder.svg?height=300&width=500", 
-  }, 
-  { 
-    id: 2, 
-    title: "Tips Investasi Aman untuk Pemula", 
-    excerpt: "Cara memulai investasi dengan risiko rendah...", 
-    category: "Ekonomi", 
-    author: "Editor", 
-    date: "2024-01-12", 
-    image: "/placeholder.svg?height=300&width=500", }, ]
-
 function getDailyZodiacs() {
     const today = new Date().toISOString().slice(0, 10)
     const seed = parseInt(today.replace(/-/g, ""), 10) 
@@ -100,10 +81,34 @@ function ZodiakSlider() {
   )
                                            }
 
+import { createClient } from '@supabase/supabase-js'
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+)
+
 export default function HomePage() {
-  const [activeCategory, setActiveCategory] = useState<string | null>(null) 
-  const dailyZodiacs = getDailyZodiacs()  
+  const [activeCategory, setActiveCategory] = useState<string | null>(null)
+  const [articles, setArticles] = useState<any[]>([])
+  const dailyZodiacs = getDailyZodiacs()
   const todayFormatted = format(new Date(), "dd MMMM yyyy")
+
+  useEffect(() => {
+    async function fetchArticles() {
+      const { data, error } = await supabase
+        .from("articles")
+        .select("*")
+        .eq("status", "published")
+        .order("created_at", { ascending: false })
+
+      if (error) console.error("Gagal ambil artikel:", error)
+      else setArticles(data || [])
+    }
+
+    fetchArticles()
+  }, [])
+
 
 return (
     <div className="min-h-screen bg-white text-black">
