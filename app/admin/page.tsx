@@ -56,7 +56,9 @@ export default function AdminPage() {
     ]);
 
     if (error) {
-      setErrorMessage("Gagal menyimpan artikel");
+  console.error("Upload error:", error.message);
+  setErrorMessage(`Gagal upload gambar: ${error.message}`);
+  return;
     } else {
       setSuccessMessage("Artikel berhasil disimpan!");
       setTitle("");
