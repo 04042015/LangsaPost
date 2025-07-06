@@ -49,7 +49,7 @@ export default function AdminPage() {
         author,
         content,
         image_url,
-        status,
+        status: "published",
         featured: false,
         views: 0,
       },
