@@ -7,10 +7,9 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    unoptimized: false,
-    domains: ['batyohvfirsxgduloyvq.supabase.co'], // tambahkan domain supabase-mu
+    unoptimized: false, // ubah jadi false agar bisa pakai <Image />
+    domains: ['batyohvfirsxgduloyvq.supabase.co'], // tambahkan ini
   },
-  // Konfigurasi untuk App Router - tidak perlu exportPathMap
 }
 
 export default nextConfig
