@@ -144,33 +144,27 @@ export default function HomePage() {
 
         {/* Artikel */}
         {articles.map((article) => (
-          <Card key={article.id} className="overflow-hidden">
-            <div className="relative h-48 md:h-64">
-              <Image
-                src={article.image_url || "/placeholder.svg?height=300&width=500"}
-                alt={article.title}
-                fill
-                className="object-cover"
-              />
-            </div>
-            <CardContent className="p-4 space-y-2">
-              <div className="text-sm text-gray-500 flex gap-4 items-center">
-                <Badge variant="secondary">{article.category}</Badge>
-                <span className="flex items-center gap-1">
-                  <User className="h-4 w-4" />
-                  {article.author}
-                </span>
-                <span className="flex items-center gap-1">
-                  <Calendar className="h-4 w-4" />
-                  {format(new Date(article.created_at), "dd MMM yyyy", { locale: id })}
-                </span>
-              </div>
-              <h2 className="text-xl font-bold hover:text-langsapost-600 transition">
-                {article.title}
-              </h2>
-              <p className="text-gray-600 text-sm">{(article.content || "").slice(0, 100)}...</p>
-            </CardContent>
-          </Card>
+          <Card key={article.id} className="overflow-hidden hover:shadow">
+  <Link href={`/artikel/${article.slug}`}>
+    <div className="relative h-48 md:h-64">
+      <Image
+        src={article.image_url || "/placeholder.svg"}
+        alt={article.title}
+        fill
+        className="object-cover"
+      />
+    </div>
+  </Link>
+  <CardContent className="p-4 space-y-2">
+    {/* ... info badge, author, date ... */}
+    <Link href={`/artikel/${article.slug}`}>
+      <h2 className="text-xl font-bold hover:text-langsapost-600 transition">
+        {article.title}
+      </h2>
+    </Link>
+    <p className="text-gray-600 text-sm">{(article.content || "").slice(0, 100)}...</p>
+  </CardContent>
+</Card>
         ))}
 
         {/* Zodiak Hari Ini - Grid */}
