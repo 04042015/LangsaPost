@@ -23,30 +23,26 @@ const CATEGORIES = {
   zodiak: { name: "Zodiak", description: "Ramalan zodiak harian dan informasi astrologi" },
 }
 
-export async function generateStaticParams() {
-  return Object.keys(CATEGORIES).map((slug) => ({ slug }))
-}
+export const dynamic = "force-dynamic"
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const category = CATEGORIES[params.slug as keyof typeof CATEGORIES]
   if (!category) {
-    return {
-      title: "Kategori Tidak Ditemukan - LangsaPost",
-    }
+    return { title: "Kategori Tidak Ditemukan - LangsaPost" }
   }
   return {
     title: `${category.name} - LangsaPost`,
-    description: `${category.description} - Baca berita ${category.name.toLowerCase()} terbaru di LangsaPost`,
-    keywords: `berita ${category.name.toLowerCase()}, ${category.name} terbaru, LangsaPost`,
+    description: category.description,
   }
 }
 
 export default async function CategoryPage({ params }: { params: { slug: string } }) {
-  const category = CATEGORIES[params.slug as keyof typeof CATEGORIES]
-  if (!category) notFound()
+  const categoryKey = params.slug
+  const category = CATEGORIES[categoryKey as keyof typeof CATEGORIES]
+  if (!category) return notFound()
 
   const res = await fetch(
-    `https://batyohvfirsxgduloyvq.supabase.co/rest/v1/articles?category=eq.${params.slug}&status=eq.published`,
+    `https://batyohvfirsxgduloyvq.supabase.co/rest/v1/articles?category=eq.${category.name}&status=eq.published&order=created_at.desc`,
     {
       headers: {
         apikey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -61,57 +57,54 @@ export default async function CategoryPage({ params }: { params: { slug: string 
     <div className="container mx-auto px-4 py-8">
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold text-gray-900 mb-4">Kategori {category.name}</h1>
-        <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">{category.description}</p>
+        <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          {category.description}
+        </p>
       </div>
 
-      <nav className="mb-8">
-        <ol className="flex items-center space-x-2 text-sm text-gray-500">
-          <li>
-            <Link href="/" className="hover:text-blue-600">Beranda</Link>
-          </li>
-          <li>{">"}</li>
-          <li>
-            <Link href="/kategori" className="hover:text-blue-600">Kategori</Link>
-          </li>
-          <li>{">"}</li>
-          <li className="text-gray-900 font-medium">{category.name}</li>
-        </ol>
-      </nav>
-
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {articles.map((article: any) => (
-          <Card key={article.id} className="overflow-hidden">
-            <Link href={`/artikel/${article.slug}`}>
-              <div className="relative h-48">
-                <Image
-                  src={article.image_url || "/placeholder.svg?height=300&width=500"}
-                  alt={article.title}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            </Link>
-            <CardContent className="p-4 space-y-2">
-              <div className="text-sm text-gray-500 flex gap-4 items-center">
-                <Badge variant="secondary">{article.category}</Badge>
-                <span className="flex items-center gap-1">
-                  <User className="h-4 w-4" />
-                  {article.author}
-                </span>
-                <span className="flex items-center gap-1">
-                  <Calendar className="h-4 w-4" />
-                  {format(new Date(article.created_at), "dd MMM yyyy", { locale: id })}
-                </span>
-              </div>
-              <h2 className="text-xl font-bold hover:text-langsapost-600 transition">{article.title}</h2>
-              <p className="text-gray-600 text-sm">{article.content?.slice(0, 100)}...</p>
-              <Link href={`/artikel/${article.slug}`} className="text-sm text-blue-600 hover:underline">
-                Baca Selengkapnya →
+      {articles.length === 0 ? (
+        <p className="text-center text-gray-500">Belum ada artikel di kategori ini.</p>
+      ) : (
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {articles.map((article: any) => (
+            <Card key={article.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+              <Link href={`/artikel/${article.slug}`}>
+                <div className="relative h-48">
+                  <Image
+                    src={article.image_url || "/placeholder.svg"}
+                    alt={article.title}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
               </Link>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+              <CardContent className="p-4 space-y-2">
+                <div className="text-sm text-gray-500 flex gap-4 items-center">
+                  <Badge variant="secondary">{article.category}</Badge>
+                  <span className="flex items-center gap-1">
+                    <User className="h-4 w-4" />
+                    {article.author}
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <Calendar className="h-4 w-4" />
+                    {format(new Date(article.created_at), "dd MMM yyyy", { locale: id })}
+                  </span>
+                </div>
+                <h2 className="text-lg font-bold line-clamp-2 hover:text-langsapost-600">
+                  <Link href={`/artikel/${article.slug}`}>{article.title}</Link>
+                </h2>
+                <p className="text-gray-600 text-sm line-clamp-3">
+                  {(article.content || "").replace(/<[^>]+>/g, "").slice(0, 100)}...
+                </p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      )}
     </div>
   )
+}
+
+export function generateStaticParams() {
+  return Object.keys(CATEGORIES).map((slug) => ({ slug }))
 }
