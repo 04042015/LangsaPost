@@ -1,60 +1,31 @@
 import type React from "react"
 import type { Metadata } from "next"
+import { Inter } from "next/font/google"
 import "./globals.css"
-import NavBar from '@/components/NavBar';
+
+const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "LangsaPost - Portal Berita Terpercaya Langsa",
-  description:
-    "Portal berita terpercaya dengan informasi terkini dan akurat untuk masyarakat Langsa dan Indonesia. Berita Politik, Ekonomi, Olahraga, Teknologi, dan kategori lainnya.",
-  keywords:
-    "berita langsa, langsapost, berita aceh, portal berita, berita terkini, politik, ekonomi, olahraga, teknologi",
+  title: "LangsaPost - Portal Berita Terpercaya",
+  description: "Menyajikan berita terkini dan terpercaya dari berbagai bidang untuk masyarakat Indonesia",
+  keywords: "berita, news, indonesia, politik, ekonomi, olahraga, teknologi",
   authors: [{ name: "LangsaPost Team" }],
-  creator: "LangsaPost",
-  publisher: "LangsaPost",
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
-  metadataBase: new URL("https://langsapost-xi.vercel.app"),
   openGraph: {
     title: "LangsaPost - Portal Berita Terpercaya",
-    description: "Portal berita terpercaya dengan informasi terkini dan akurat untuk masyarakat Langsa dan Indonesia.",
-    url: "https://langsapost-xi.vercel.app",
-    siteName: "LangsaPost",
-    locale: "id_ID",
+    description: "Menyajikan berita terkini dan terpercaya dari berbagai bidang untuk masyarakat Indonesia",
     type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "LangsaPost - Portal Berita Terpercaya",
-    description: "Portal berita terpercaya dengan informasi terkini dan akurat untuk masyarakat Langsa dan Indonesia.",
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
+    locale: "id_ID",
   },
 }
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode
-}>) {
+}) {
   return (
     <html lang="id">
-      <body className="antialiased">
-  <NavBar />
-  {children}
-</body>
+      <body className={inter.className}>{children}</body>
     </html>
   )
 }
