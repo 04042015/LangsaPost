@@ -1,9 +1,7 @@
 "use client"
 
-import { useEffect, useState, useRef } from "react"
-import { Badge } from "@/components/ui/badge"
+import { useEffect, useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
-import { Calendar, User, ArrowLeft, ArrowRight } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import zodiacData from "@/data/zodiak.json"
@@ -35,47 +33,6 @@ function getDailyZodiacs() {
     return hashA - hashB
   })
   return shuffled.map((z, i) => ({ ...z, date: today }))
-}
-
-function ZodiakSlider() {
-  const scrollRef = useRef<HTMLDivElement>(null)
-
-  const scroll = (dir: "left" | "right") => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: dir === "left" ? -300 : 300, behavior: "smooth" })
-    }
-  }
-
-  return (
-    <div className="relative">
-      <button
-        onClick={() => scroll("left")}
-        className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow p-1 rounded-full"
-      >
-        <ArrowLeft className="w-5 h-5" />
-      </button>
-
-      <div ref={scrollRef} className="flex space-x-4 overflow-x-auto scrollbar-hide py-4 px-2">
-        {zodiacData.map((zodiak) => (
-          <Link key={zodiak.slug} href={`/zodiak/${zodiak.slug}`}>
-            <Card className="min-w-[150px] hover:shadow-lg transition">
-              <CardContent className="p-4 text-center">
-                <div className="text-3xl">{zodiak.icon}</div>
-                <div className="font-bold text-sm mt-1">{zodiak.name}</div>
-              </CardContent>
-            </Card>
-          </Link>
-        ))}
-      </div>
-
-      <button
-        onClick={() => scroll("right")}
-        className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow p-1 rounded-full"
-      >
-        <ArrowRight className="w-5 h-5" />
-      </button>
-    </div>
-  )
 }
 
 export default function HomePage() {
@@ -114,74 +71,67 @@ export default function HomePage() {
           </Link>
         </div>
 
-        <div className="bg-black overflow-x-auto whitespace-nowrap scrollbar-hide">
-  <div className="flex px-2 py-2 space-x-3">
-    {categories.map((cat) => (
-      <Link
-        key={cat.slug}
-        href={`/kategori/${cat.slug}`}
-        onClick={() => setActiveCategory(cat.slug)}
-        className={`text-sm text-white font-semibold border-b-2 ${
-          activeCategory === cat.slug
-            ? "border-white"
-            : "border-transparent hover:border-white"
-        } pb-1`}
-      >
-        {cat.name}
-      </Link>
-    ))}
-  </div>
-</div>
+        <div className="bg-black overflow-x-auto scrollbar-hide">
+          <div className="flex px-4 py-2 space-x-4 w-max">
+            {categories.map((cat) => (
+              <Link
+                key={cat.slug}
+                href={`/kategori/${cat.slug}`}
+                onClick={() => setActiveCategory(cat.slug)}
+                className={`text-sm text-white font-semibold border-b-2 ${
+                  activeCategory === cat.slug
+                    ? "border-white"
+                    : "border-transparent hover:border-white"
+                } pb-1`}
+              >
+                {cat.name}
+              </Link>
+            ))}
+          </div>
+        </div>
       </header>
 
       {/* Konten Utama */}
       <main className="container mx-auto px-4 py-6 space-y-6">
-        {/* SLIDER ZODIAK */}
-        <section>
-          <h2 className="text-xl font-bold text-langsapost-600 mb-2">🔮 Ramalan Zodiak Hari Ini</h2>
-          <ZodiakSlider />
-        </section>
-
         {/* Artikel */}
         <section>
-  <h2 className="text-xl font-bold mb-4 text-langsapost-600">📰 Artikel Terbaru</h2>
-  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-    {articles.map((article) => (
-      <Link href={`/artikel/${article.slug}`} key={article.id}>
-        <div className="bg-white dark:bg-zinc-900 rounded-xl overflow-hidden shadow hover:shadow-lg transition transform hover:scale-[1.01]">
-          <div className="relative h-48 w-full">
-            <Image
-              src={article.image_url || "/placeholder.svg"}
-              alt={article.title}
-              fill
-              className="object-cover"
-            />
+          <h2 className="text-xl font-bold mb-4 text-langsapost-600">📰 Artikel Terbaru</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            {articles.map((article) => (
+              <Link href={`/artikel/${article.slug}`} key={article.id}>
+                <div className="bg-white dark:bg-zinc-900 rounded-xl overflow-hidden shadow hover:shadow-lg transition transform hover:scale-[1.01]">
+                  <div className="relative h-48 w-full">
+                    <Image
+                      src={article.image_url || "/placeholder.svg"}
+                      alt={article.title}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="p-4 space-y-2">
+                    <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+                      <span className="bg-langsapost-100 text-langsapost-600 px-2 py-0.5 rounded-full text-[10px] uppercase">
+                        {article.category || "Umum"}
+                      </span>
+                      <span>•</span>
+                      <span>
+                        {new Date(article.created_at).toLocaleDateString("id-ID", {
+                          dateStyle: "medium",
+                        })}
+                      </span>
+                    </div>
+                    <h3 className="text-lg font-semibold leading-snug text-black dark:text-white line-clamp-2">
+                      {article.title}
+                    </h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-3">
+                      {article.content?.slice(0, 100)}...
+                    </p>
+                  </div>
+                </div>
+              </Link>
+            ))}
           </div>
-          <div className="p-4 space-y-2">
-            <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
-              <span className="bg-langsapost-100 text-langsapost-600 px-2 py-0.5 rounded-full text-[10px] uppercase">
-                {article.category || "Umum"}
-              </span>
-              <span>•</span>
-              <span>
-                {new Date(article.created_at).toLocaleDateString("id-ID", {
-                  dateStyle: "medium",
-                })}
-              </span>
-            </div>
-            <h3 className="text-lg font-semibold leading-snug text-black dark:text-white line-clamp-2">
-              {article.title}
-            </h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-3">
-              {article.content?.slice(0, 100)}...
-            </p>
-          </div>
-        </div>
-      </Link>
-    ))}
-  </div>
-</section>
-
+        </section>
 
         {/* Zodiak Hari Ini - Grid */}
         <section className="pt-6">
@@ -197,14 +147,14 @@ export default function HomePage() {
                     <div>
                       <Link
                         href={`/zodiak/${zodiak.slug}`}
-                        className="text-lg font-semibold hover:text-langsapost-600"
+                        className="text-lg font-semibold hover:text-langsapost-600 text-black dark:text-white"
                       >
                         {zodiak.name}
                       </Link>
                       <div className="text-xs text-gray-500">{zodiak.date}</div>
                     </div>
                   </div>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
                     {zodiak.prediction?.slice(0, 100) || "Prediksi harian belum tersedia..."}
                   </p>
                   <Link
@@ -220,5 +170,5 @@ export default function HomePage() {
         </section>
       </main>
     </div>
-  );
+  )
 }
