@@ -143,29 +143,45 @@ export default function HomePage() {
         </section>
 
         {/* Artikel */}
-        {articles.map((article) => (
-          <Card key={article.id} className="overflow-hidden hover:shadow">
-  <Link href={`/artikel/${article.slug}`}>
-    <div className="relative h-48 md:h-64">
-      <Image
-        src={article.image_url || "/placeholder.svg"}
-        alt={article.title}
-        fill
-        className="object-cover"
-      />
-    </div>
-  </Link>
-  <CardContent className="p-4 space-y-2">
-    {/* ... info badge, author, date ... */}
-    <Link href={`/artikel/${article.slug}`}>
-      <h2 className="text-xl font-bold hover:text-langsapost-600 transition">
-        {article.title}
-      </h2>
-    </Link>
-    <p className="text-gray-600 text-sm">{(article.content || "").slice(0, 100)}...</p>
-  </CardContent>
-</Card>
-        ))}
+        <section>
+  <h2 className="text-xl font-bold mb-4 text-langsapost-600">📰 Artikel Terbaru</h2>
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+    {articles.map((article) => (
+      <Link href={`/artikel/${article.slug}`} key={article.id}>
+        <div className="bg-white dark:bg-zinc-900 rounded-xl overflow-hidden shadow hover:shadow-lg transition transform hover:scale-[1.01]">
+          <div className="relative h-48 w-full">
+            <Image
+              src={article.image_url || "/placeholder.svg"}
+              alt={article.title}
+              fill
+              className="object-cover"
+            />
+          </div>
+          <div className="p-4 space-y-2">
+            <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+              <span className="bg-langsapost-100 text-langsapost-600 px-2 py-0.5 rounded-full text-[10px] uppercase">
+                {article.category || "Umum"}
+              </span>
+              <span>•</span>
+              <span>
+                {new Date(article.created_at).toLocaleDateString("id-ID", {
+                  dateStyle: "medium",
+                })}
+              </span>
+            </div>
+            <h3 className="text-lg font-semibold leading-snug text-black dark:text-white line-clamp-2">
+              {article.title}
+            </h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-3">
+              {article.content?.slice(0, 100)}...
+            </p>
+          </div>
+        </div>
+      </Link>
+    ))}
+  </div>
+</section>
+
 
         {/* Zodiak Hari Ini - Grid */}
         <section className="pt-6">
