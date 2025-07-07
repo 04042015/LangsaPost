@@ -1,14 +1,24 @@
+"use client"
+
 import Image from "next/image"
+import Link from "next/link"
 import { Calendar, User, Eye, Heart, Share2, Search, Menu } from "lucide-react"
 
 export default function LangsaPostHomepage() {
   const categories = [
-    { name: "Politik", color: "bg-red-500" },
-    { name: "Ekonomi", color: "bg-green-500" },
-    { name: "Olahraga", color: "bg-blue-500" },
-    { name: "Teknologi", color: "bg-purple-500" },
-    { name: "Internasional", color: "bg-orange-500" },
-    { name: "Kesehatan", color: "bg-pink-500" },
+    { name: "Politik", slug: "politik" },
+    { name: "Ekonomi", slug: "ekonomi" },
+    { name: "Olahraga", slug: "olahraga" },
+    { name: "Teknologi", slug: "teknologi" },
+    { name: "Internasional", slug: "internasional" },
+    { name: "Nasional", slug: "nasional" },
+    { name: "Hiburan", slug: "hiburan" },
+    { name: "Kesehatan", slug: "kesehatan" },
+    { name: "Pendidikan", slug: "pendidikan" },
+    { name: "Otomotif", slug: "otomotif" },
+    { name: "Langsa", slug: "langsa" },
+    { name: "Loker", slug: "loker" },
+    { name: "Zodiak", slug: "zodiak" },
   ]
 
   const articles = [
@@ -18,8 +28,10 @@ export default function LangsaPostHomepage() {
       excerpt:
         "Tidur yang berkualitas sangat penting untuk kesehatan fisik dan mental. Namun, banyak orang yang kesulitan mendapatkan tidur yang nyenyak...",
       category: "Kesehatan",
+      categorySlug: "kesehatan",
       author: "Admin",
       date: "06 Jul 2025",
+      slug: "5-tips-agar-tidur-lebih-nyenyak-di-malam-hari",
       image: "/placeholder.svg?height=200&width=300",
       views: 1250,
       featured: false,
@@ -30,8 +42,10 @@ export default function LangsaPostHomepage() {
       excerpt:
         "Sistem imun yang kuat adalah pertahanan utama tubuh dari penyakit. Berikut cara alami meningkatkan imunitas tubuh Anda...",
       category: "Kesehatan",
+      categorySlug: "kesehatan",
       author: "Admin",
       date: "07 Jul 2025",
+      slug: "5-tips-agar-imun-tubuh-tetap-kuat-tanpa-obat",
       image: "/placeholder.svg?height=400&width=600",
       views: 2100,
       featured: true,
@@ -42,8 +56,10 @@ export default function LangsaPostHomepage() {
       excerpt:
         "Artificial Intelligence semakin berkembang pesat di Indonesia. Berbagai sektor mulai mengadopsi teknologi ini untuk meningkatkan efisiensi...",
       category: "Teknologi",
+      categorySlug: "teknologi",
       author: "Tech Editor",
       date: "05 Jul 2025",
+      slug: "perkembangan-teknologi-ai-di-indonesia-2025",
       image: "/placeholder.svg?height=200&width=300",
       views: 890,
       featured: false,
@@ -57,7 +73,7 @@ export default function LangsaPostHomepage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
-            <div className="flex items-center space-x-3">
+            <Link href="/" className="flex items-center space-x-3">
               <div className="w-10 h-10 bg-red-500 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-lg">LP</span>
               </div>
@@ -65,7 +81,7 @@ export default function LangsaPostHomepage() {
                 <h1 className="text-2xl font-bold text-red-500">LangsaPost</h1>
                 <p className="text-xs text-gray-500 hidden sm:block">Portal Berita Terpercaya</p>
               </div>
-            </div>
+            </Link>
 
             {/* Search Bar - Hidden on mobile */}
             <div className="hidden md:flex items-center space-x-4 flex-1 max-w-md mx-8">
@@ -81,9 +97,12 @@ export default function LangsaPostHomepage() {
 
             {/* Right side */}
             <div className="flex items-center space-x-4">
-              <button className="hidden sm:flex px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors">
+              <Link
+                href="/artikel"
+                className="hidden sm:flex px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+              >
                 Semua Artikel
-              </button>
+              </Link>
               <button className="md:hidden p-2 text-gray-600 hover:text-gray-900">
                 <Menu className="w-5 h-5" />
               </button>
@@ -93,17 +112,25 @@ export default function LangsaPostHomepage() {
       </header>
 
       {/* Navigation Categories */}
-      <nav className="bg-white border-b">
+      <nav className="bg-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex space-x-1 overflow-x-auto py-3 scrollbar-hide">
+          <div
+            className="flex space-x-2 overflow-x-auto py-4"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          >
+            <style jsx>{`
+              div::-webkit-scrollbar {
+                display: none;
+              }
+            `}</style>
             {categories.map((category) => (
-              <button
-                key={category.name}
-                className="whitespace-nowrap px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg flex items-center space-x-2 transition-colors"
+              <Link
+                key={category.slug}
+                href={`/kategori/${category.slug}`}
+                className="whitespace-nowrap px-4 py-2 text-sm font-medium text-white bg-black hover:bg-gray-800 rounded-lg transition-colors flex-shrink-0"
               >
-                <div className={`w-2 h-2 rounded-full ${category.color}`}></div>
-                <span>{category.name}</span>
-              </button>
+                {category.name}
+              </Link>
             ))}
           </div>
         </div>
@@ -121,24 +148,31 @@ export default function LangsaPostHomepage() {
             >
               <div className="md:flex">
                 <div className="md:w-1/2">
-                  <Image
-                    src={article.image || "/placeholder.svg"}
-                    alt={article.title}
-                    width={600}
-                    height={400}
-                    className="w-full h-64 md:h-full object-cover"
-                  />
+                  <Link href={`/artikel/${article.slug}`}>
+                    <Image
+                      src={article.image || "/placeholder.svg"}
+                      alt={article.title}
+                      width={600}
+                      height={400}
+                      className="w-full h-64 md:h-full object-cover hover:scale-105 transition-transform duration-300 cursor-pointer"
+                    />
+                  </Link>
                 </div>
                 <div className="md:w-1/2 p-6">
                   <div className="flex items-center space-x-2 mb-3">
-                    <span className="px-3 py-1 bg-pink-100 text-pink-800 text-xs font-medium rounded-full">
+                    <Link
+                      href={`/kategori/${article.categorySlug}`}
+                      className="px-3 py-1 bg-black text-white text-xs font-medium rounded-full hover:bg-gray-800 transition-colors"
+                    >
                       {article.category}
-                    </span>
+                    </Link>
                     <span className="text-red-500 font-semibold text-sm">FEATURED</span>
                   </div>
-                  <h2 className="text-2xl font-bold text-gray-900 mb-3 hover:text-red-500 cursor-pointer transition-colors">
-                    {article.title}
-                  </h2>
+                  <Link href={`/artikel/${article.slug}`}>
+                    <h2 className="text-2xl font-bold text-gray-900 mb-3 hover:text-red-500 cursor-pointer transition-colors">
+                      {article.title}
+                    </h2>
+                  </Link>
                   <p className="text-gray-600 mb-4 line-clamp-3">{article.excerpt}</p>
                   <div className="flex items-center justify-between text-sm text-gray-500">
                     <div className="flex items-center space-x-4">
@@ -179,21 +213,28 @@ export default function LangsaPostHomepage() {
                 className="bg-white rounded-lg shadow-sm border overflow-hidden hover:shadow-lg transition-shadow group"
               >
                 <div className="relative">
-                  <Image
-                    src={article.image || "/placeholder.svg"}
-                    alt={article.title}
-                    width={300}
-                    height={200}
-                    className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <span className="absolute top-3 left-3 px-3 py-1 bg-pink-100 text-pink-800 text-xs font-medium rounded-full">
+                  <Link href={`/artikel/${article.slug}`}>
+                    <Image
+                      src={article.image || "/placeholder.svg"}
+                      alt={article.title}
+                      width={300}
+                      height={200}
+                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300 cursor-pointer"
+                    />
+                  </Link>
+                  <Link
+                    href={`/kategori/${article.categorySlug}`}
+                    className="absolute top-3 left-3 px-3 py-1 bg-black text-white text-xs font-medium rounded-full hover:bg-gray-800 transition-colors"
+                  >
                     {article.category}
-                  </span>
+                  </Link>
                 </div>
                 <div className="p-4">
-                  <h3 className="font-bold text-lg text-gray-900 mb-2 hover:text-red-500 cursor-pointer transition-colors line-clamp-2">
-                    {article.title}
-                  </h3>
+                  <Link href={`/artikel/${article.slug}`}>
+                    <h3 className="font-bold text-lg text-gray-900 mb-2 hover:text-red-500 cursor-pointer transition-colors line-clamp-2">
+                      {article.title}
+                    </h3>
+                  </Link>
                   <p className="text-gray-600 text-sm mb-4 line-clamp-2">{article.excerpt}</p>
                   <div className="flex items-center justify-between text-xs text-gray-500">
                     <div className="flex items-center space-x-3">
@@ -218,9 +259,12 @@ export default function LangsaPostHomepage() {
 
         {/* Load More Button */}
         <div className="text-center mt-12">
-          <button className="px-8 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors">
+          <Link
+            href="/artikel"
+            className="inline-block px-8 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors"
+          >
             Muat Lebih Banyak Artikel
-          </button>
+          </Link>
         </div>
       </main>
 
@@ -245,26 +289,13 @@ export default function LangsaPostHomepage() {
             <div>
               <h4 className="font-semibold mb-4">Kategori</h4>
               <ul className="space-y-2 text-gray-400">
-                <li>
-                  <a href="#" className="hover:text-white transition-colors">
-                    Politik
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition-colors">
-                    Ekonomi
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition-colors">
-                    Olahraga
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition-colors">
-                    Teknologi
-                  </a>
-                </li>
+                {categories.slice(0, 6).map((category) => (
+                  <li key={category.slug}>
+                    <Link href={`/kategori/${category.slug}`} className="hover:text-white transition-colors">
+                      {category.name}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
             <div>
