@@ -50,7 +50,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id">
-      <body className="antialiased">{children}</body>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </head>
+      <body className="antialiased bg-white text-black">{children}</body>
     </html>
   )
-}
+                                   }
