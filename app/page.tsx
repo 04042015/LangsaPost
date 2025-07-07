@@ -114,7 +114,7 @@ export default function HomePage() {
           </Link>
         </div>
 
-        <<div className="bg-black overflow-x-auto whitespace-nowrap scrollbar-hide">
+        <div className="bg-black overflow-x-auto whitespace-nowrap scrollbar-hide">
   <div className="flex px-2 py-2 space-x-3">
     {categories.map((cat) => (
       <Link
