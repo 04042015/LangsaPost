@@ -1,9 +1,5 @@
 import Image from "next/image"
 import { Calendar, User, Eye, Heart, Share2, Search, Menu } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
 
 export default function LangsaPostHomepage() {
   const categories = [
@@ -75,18 +71,22 @@ export default function LangsaPostHomepage() {
             <div className="hidden md:flex items-center space-x-4 flex-1 max-w-md mx-8">
               <div className="relative w-full">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-                <Input placeholder="Cari berita..." className="pl-10 bg-gray-50 border-gray-200" />
+                <input
+                  type="text"
+                  placeholder="Cari berita..."
+                  className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                />
               </div>
             </div>
 
             {/* Right side */}
             <div className="flex items-center space-x-4">
-              <Button variant="outline" size="sm" className="hidden sm:flex bg-transparent">
+              <button className="hidden sm:flex px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors">
                 Semua Artikel
-              </Button>
-              <Button size="sm" className="md:hidden">
-                <Menu className="w-4 h-4" />
-              </Button>
+              </button>
+              <button className="md:hidden p-2 text-gray-600 hover:text-gray-900">
+                <Menu className="w-5 h-5" />
+              </button>
             </div>
           </div>
         </div>
@@ -97,15 +97,13 @@ export default function LangsaPostHomepage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex space-x-1 overflow-x-auto py-3 scrollbar-hide">
             {categories.map((category) => (
-              <Button
+              <button
                 key={category.name}
-                variant="ghost"
-                size="sm"
-                className="whitespace-nowrap hover:bg-gray-100 flex items-center space-x-2"
+                className="whitespace-nowrap px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg flex items-center space-x-2 transition-colors"
               >
                 <div className={`w-2 h-2 rounded-full ${category.color}`}></div>
                 <span>{category.name}</span>
-              </Button>
+              </button>
             ))}
           </div>
         </div>
@@ -117,7 +115,10 @@ export default function LangsaPostHomepage() {
         {articles
           .filter((article) => article.featured)
           .map((article) => (
-            <Card key={article.id} className="mb-8 overflow-hidden hover:shadow-lg transition-shadow">
+            <div
+              key={article.id}
+              className="bg-white rounded-lg shadow-sm border mb-8 overflow-hidden hover:shadow-lg transition-shadow"
+            >
               <div className="md:flex">
                 <div className="md:w-1/2">
                   <Image
@@ -130,7 +131,9 @@ export default function LangsaPostHomepage() {
                 </div>
                 <div className="md:w-1/2 p-6">
                   <div className="flex items-center space-x-2 mb-3">
-                    <Badge className="bg-pink-100 text-pink-800 hover:bg-pink-100">{article.category}</Badge>
+                    <span className="px-3 py-1 bg-pink-100 text-pink-800 text-xs font-medium rounded-full">
+                      {article.category}
+                    </span>
                     <span className="text-red-500 font-semibold text-sm">FEATURED</span>
                   </div>
                   <h2 className="text-2xl font-bold text-gray-900 mb-3 hover:text-red-500 cursor-pointer transition-colors">
@@ -153,17 +156,17 @@ export default function LangsaPostHomepage() {
                       </div>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <Button size="sm" variant="ghost" className="p-1">
+                      <button className="p-1 text-gray-400 hover:text-red-500 transition-colors">
                         <Heart className="w-4 h-4" />
-                      </Button>
-                      <Button size="sm" variant="ghost" className="p-1">
+                      </button>
+                      <button className="p-1 text-gray-400 hover:text-blue-500 transition-colors">
                         <Share2 className="w-4 h-4" />
-                      </Button>
+                      </button>
                     </div>
                   </div>
                 </div>
               </div>
-            </Card>
+            </div>
           ))}
 
         {/* Articles Grid */}
@@ -171,7 +174,10 @@ export default function LangsaPostHomepage() {
           {articles
             .filter((article) => !article.featured)
             .map((article) => (
-              <Card key={article.id} className="overflow-hidden hover:shadow-lg transition-shadow group">
+              <div
+                key={article.id}
+                className="bg-white rounded-lg shadow-sm border overflow-hidden hover:shadow-lg transition-shadow group"
+              >
                 <div className="relative">
                   <Image
                     src={article.image || "/placeholder.svg"}
@@ -180,11 +186,11 @@ export default function LangsaPostHomepage() {
                     height={200}
                     className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                   />
-                  <Badge className="absolute top-3 left-3 bg-pink-100 text-pink-800 hover:bg-pink-100">
+                  <span className="absolute top-3 left-3 px-3 py-1 bg-pink-100 text-pink-800 text-xs font-medium rounded-full">
                     {article.category}
-                  </Badge>
+                  </span>
                 </div>
-                <CardContent className="p-4">
+                <div className="p-4">
                   <h3 className="font-bold text-lg text-gray-900 mb-2 hover:text-red-500 cursor-pointer transition-colors line-clamp-2">
                     {article.title}
                   </h3>
@@ -205,16 +211,16 @@ export default function LangsaPostHomepage() {
                       <span>{article.views}</span>
                     </div>
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             ))}
         </div>
 
         {/* Load More Button */}
         <div className="text-center mt-12">
-          <Button size="lg" variant="outline" className="px-8 bg-transparent">
+          <button className="px-8 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors">
             Muat Lebih Banyak Artikel
-          </Button>
+          </button>
         </div>
       </main>
 
