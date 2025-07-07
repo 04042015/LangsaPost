@@ -1,6 +1,7 @@
 import type React from "react"
 import type { Metadata } from "next"
 import "./globals.css"
+import NavBar from '@/components/NavBar';
 
 export const metadata: Metadata = {
   title: "LangsaPost - Portal Berita Terpercaya Langsa",
