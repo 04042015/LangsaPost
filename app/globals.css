@@ -12,6 +12,15 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;  /* IE dan Edge */
+    scrollbar-width: none;     /* Firefox */
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;             /* Chrome, Safari */
+  }
 }
 
 /* Variabel warna (light mode & dark mode) */
@@ -87,7 +96,7 @@ body {
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
- }
+  }
 
   * {
     border-color: hsl(var(--border));
@@ -97,10 +106,4 @@ body {
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
   }
-  .scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
-}
+      }
