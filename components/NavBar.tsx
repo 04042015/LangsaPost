@@ -1,33 +1,24 @@
+// components/NavBar.tsx
 'use client';
 import Link from 'next/link';
 
 const categories = [
-  'Politik', 
-  'Internasional', 
-  'Nasional',
-  'Ekonomi',
-  'Teknologi',
-  'Olahraga', 
-  'Kesehatan', 
-  'Pendidikan', 
-  'Hiburan', 
-  'Otomotif',
-  'Langsa', 
-  'Loker', 
-  'Zodiak'
+  'Politik', 'Ekonomi', 'Olahraga', 'Teknologi', 'Internasional',
+  'Nasional', 'Kesehatan', 'Pendidikan', 'Hiburan', 'Otomotif',
+  'Langsa', 'Loker', 'Zodiak'
 ];
 
 export default function NavBar() {
   return (
-    <nav className="bg-black text-white px-4 py-2 overflow-x-auto whitespace-nowrap">
-      <div className="flex space-x-6 text-sm font-medium">
-        {categories.map((cat) => (
+    <nav className="bg-black text-white px-4 py-2 overflow-x-auto">
+      <div className="flex space-x-4 whitespace-nowrap text-sm font-medium">
+        {categories.map((category) => (
           <Link
-            key={cat}
-            href={`/kategori/${cat.toLowerCase()}`}
+            key={category}
+            href={`/kategori/${category.toLowerCase()}`}
             className="hover:underline hover:underline-offset-4 transition duration-200"
           >
-            {cat}
+            {category}
           </Link>
         ))}
       </div>
