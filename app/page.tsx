@@ -70,40 +70,27 @@ export default function LangsaPostHomepage() {
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <header className="bg-white shadow-sm border-b sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+        <div className="w-full px-4">
+          <div className="flex items-center justify-between h-14">
             {/* Logo */}
-            <Link href="/" className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-red-500 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">LP</span>
+            <Link href="/" className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-red-500 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-sm">LP</span>
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-red-500">LangsaPost</h1>
-                <p className="text-xs text-gray-500 hidden sm:block">Portal Berita Terpercaya</p>
+                <h1 className="text-lg font-bold text-red-500">LangsaPost</h1>
               </div>
             </Link>
 
-            {/* Search Bar - Hidden on mobile */}
-            <div className="hidden md:flex items-center space-x-4 flex-1 max-w-md mx-8">
-              <div className="relative w-full">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-                <input
-                  type="text"
-                  placeholder="Cari berita..."
-                  className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                />
-              </div>
-            </div>
-
             {/* Right side */}
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2">
               <Link
                 href="/artikel"
-                className="hidden sm:flex px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+                className="px-3 py-1.5 border border-gray-300 rounded text-xs font-medium text-gray-700 bg-white"
               >
                 Semua Artikel
               </Link>
-              <button className="md:hidden p-2 text-gray-600 hover:text-gray-900">
+              <button className="p-2 text-gray-600">
                 <Menu className="w-5 h-5" />
               </button>
             </div>
@@ -111,23 +98,27 @@ export default function LangsaPostHomepage() {
         </div>
       </header>
 
+      {/* Search Bar Mobile */}
+      <div className="bg-white border-b px-4 py-3">
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+          <input
+            type="text"
+            placeholder="Cari berita..."
+            className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent text-sm"
+          />
+        </div>
+      </div>
+
       {/* Navigation Categories */}
       <nav className="bg-black">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div
-            className="flex space-x-2 overflow-x-auto py-4"
-            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-          >
-            <style jsx>{`
-              div::-webkit-scrollbar {
-                display: none;
-              }
-            `}</style>
+        <div className="px-4">
+          <div className="flex space-x-2 overflow-x-auto py-3 scrollbar-hide">
             {categories.map((category) => (
               <Link
                 key={category.slug}
                 href={`/kategori/${category.slug}`}
-                className="whitespace-nowrap px-4 py-2 text-sm font-medium text-white bg-black hover:bg-gray-800 rounded-lg transition-colors flex-shrink-0"
+                className="whitespace-nowrap px-3 py-1.5 text-sm font-medium text-white bg-black hover:bg-gray-800 rounded transition-colors flex-shrink-0"
               >
                 {category.name}
               </Link>
@@ -137,119 +128,105 @@ export default function LangsaPostHomepage() {
       </nav>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="px-4 py-4">
         {/* Featured Article */}
         {articles
           .filter((article) => article.featured)
           .map((article) => (
-            <div
-              key={article.id}
-              className="bg-white rounded-lg shadow-sm border mb-8 overflow-hidden hover:shadow-lg transition-shadow"
-            >
-              <div className="md:flex">
-                <div className="md:w-1/2">
-                  <Link href={`/artikel/${article.slug}`}>
-                    <Image
-                      src={article.image || "/placeholder.svg"}
-                      alt={article.title}
-                      width={600}
-                      height={400}
-                      className="w-full h-64 md:h-full object-cover hover:scale-105 transition-transform duration-300 cursor-pointer"
-                    />
+            <div key={article.id} className="bg-white rounded-lg shadow-sm border mb-6 overflow-hidden">
+              <Link href={`/artikel/${article.slug}`}>
+                <Image
+                  src={article.image || "/placeholder.svg"}
+                  alt={article.title}
+                  width={400}
+                  height={200}
+                  className="w-full h-48 object-cover"
+                />
+              </Link>
+              <div className="p-4">
+                <div className="flex items-center space-x-2 mb-2">
+                  <Link
+                    href={`/kategori/${article.categorySlug}`}
+                    className="px-2 py-1 bg-black text-white text-xs font-medium rounded"
+                  >
+                    {article.category}
                   </Link>
+                  <span className="text-red-500 font-semibold text-xs">FEATURED</span>
                 </div>
-                <div className="md:w-1/2 p-6">
-                  <div className="flex items-center space-x-2 mb-3">
-                    <Link
-                      href={`/kategori/${article.categorySlug}`}
-                      className="px-3 py-1 bg-black text-white text-xs font-medium rounded-full hover:bg-gray-800 transition-colors"
-                    >
-                      {article.category}
-                    </Link>
-                    <span className="text-red-500 font-semibold text-sm">FEATURED</span>
+                <Link href={`/artikel/${article.slug}`}>
+                  <h2 className="text-lg font-bold text-gray-900 mb-2 hover:text-red-500 transition-colors">
+                    {article.title}
+                  </h2>
+                </Link>
+                <p className="text-gray-600 text-sm mb-3 line-clamp-3">{article.excerpt}</p>
+                <div className="flex items-center justify-between text-xs text-gray-500">
+                  <div className="flex items-center space-x-3">
+                    <div className="flex items-center space-x-1">
+                      <User className="w-3 h-3" />
+                      <span>{article.author}</span>
+                    </div>
+                    <div className="flex items-center space-x-1">
+                      <Calendar className="w-3 h-3" />
+                      <span>{article.date}</span>
+                    </div>
+                    <div className="flex items-center space-x-1">
+                      <Eye className="w-3 h-3" />
+                      <span>{article.views.toLocaleString()}</span>
+                    </div>
                   </div>
-                  <Link href={`/artikel/${article.slug}`}>
-                    <h2 className="text-2xl font-bold text-gray-900 mb-3 hover:text-red-500 cursor-pointer transition-colors">
-                      {article.title}
-                    </h2>
-                  </Link>
-                  <p className="text-gray-600 mb-4 line-clamp-3">{article.excerpt}</p>
-                  <div className="flex items-center justify-between text-sm text-gray-500">
-                    <div className="flex items-center space-x-4">
-                      <div className="flex items-center space-x-1">
-                        <User className="w-4 h-4" />
-                        <span>{article.author}</span>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <Calendar className="w-4 h-4" />
-                        <span>{article.date}</span>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <Eye className="w-4 h-4" />
-                        <span>{article.views.toLocaleString()}</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <button className="p-1 text-gray-400 hover:text-red-500 transition-colors">
-                        <Heart className="w-4 h-4" />
-                      </button>
-                      <button className="p-1 text-gray-400 hover:text-blue-500 transition-colors">
-                        <Share2 className="w-4 h-4" />
-                      </button>
-                    </div>
+                  <div className="flex items-center space-x-2">
+                    <button className="p-1 text-gray-400 hover:text-red-500">
+                      <Heart className="w-3 h-3" />
+                    </button>
+                    <button className="p-1 text-gray-400 hover:text-blue-500">
+                      <Share2 className="w-3 h-3" />
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
           ))}
 
-        {/* Articles Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Articles List */}
+        <div className="space-y-4">
           {articles
             .filter((article) => !article.featured)
             .map((article) => (
-              <div
-                key={article.id}
-                className="bg-white rounded-lg shadow-sm border overflow-hidden hover:shadow-lg transition-shadow group"
-              >
-                <div className="relative">
-                  <Link href={`/artikel/${article.slug}`}>
-                    <Image
-                      src={article.image || "/placeholder.svg"}
-                      alt={article.title}
-                      width={300}
-                      height={200}
-                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300 cursor-pointer"
-                    />
-                  </Link>
-                  <Link
-                    href={`/kategori/${article.categorySlug}`}
-                    className="absolute top-3 left-3 px-3 py-1 bg-black text-white text-xs font-medium rounded-full hover:bg-gray-800 transition-colors"
-                  >
-                    {article.category}
-                  </Link>
-                </div>
-                <div className="p-4">
-                  <Link href={`/artikel/${article.slug}`}>
-                    <h3 className="font-bold text-lg text-gray-900 mb-2 hover:text-red-500 cursor-pointer transition-colors line-clamp-2">
-                      {article.title}
-                    </h3>
-                  </Link>
-                  <p className="text-gray-600 text-sm mb-4 line-clamp-2">{article.excerpt}</p>
-                  <div className="flex items-center justify-between text-xs text-gray-500">
-                    <div className="flex items-center space-x-3">
-                      <div className="flex items-center space-x-1">
-                        <User className="w-3 h-3" />
+              <div key={article.id} className="bg-white rounded-lg shadow-sm border overflow-hidden">
+                <div className="flex">
+                  <div className="w-24 h-20 flex-shrink-0">
+                    <Link href={`/artikel/${article.slug}`}>
+                      <Image
+                        src={article.image || "/placeholder.svg"}
+                        alt={article.title}
+                        width={96}
+                        height={80}
+                        className="w-full h-full object-cover"
+                      />
+                    </Link>
+                  </div>
+                  <div className="flex-1 p-3">
+                    <Link
+                      href={`/kategori/${article.categorySlug}`}
+                      className="inline-block px-2 py-0.5 bg-black text-white text-xs font-medium rounded mb-1"
+                    >
+                      {article.category}
+                    </Link>
+                    <Link href={`/artikel/${article.slug}`}>
+                      <h3 className="font-bold text-sm text-gray-900 mb-1 hover:text-red-500 transition-colors line-clamp-2">
+                        {article.title}
+                      </h3>
+                    </Link>
+                    <div className="flex items-center justify-between text-xs text-gray-500">
+                      <div className="flex items-center space-x-2">
                         <span>{article.author}</span>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <Calendar className="w-3 h-3" />
+                        <span>•</span>
                         <span>{article.date}</span>
                       </div>
-                    </div>
-                    <div className="flex items-center space-x-1">
-                      <Eye className="w-3 h-3" />
-                      <span>{article.views}</span>
+                      <div className="flex items-center space-x-1">
+                        <Eye className="w-3 h-3" />
+                        <span>{article.views}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -258,10 +235,10 @@ export default function LangsaPostHomepage() {
         </div>
 
         {/* Load More Button */}
-        <div className="text-center mt-12">
+        <div className="text-center mt-6 mb-4">
           <Link
             href="/artikel"
-            className="inline-block px-8 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors"
+            className="inline-block px-6 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
           >
             Muat Lebih Banyak Artikel
           </Link>
@@ -269,26 +246,27 @@ export default function LangsaPostHomepage() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white mt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="col-span-1 md:col-span-2">
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="w-10 h-10 bg-red-500 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">LP</span>
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold">LangsaPost</h3>
-                  <p className="text-gray-400 text-sm">Portal Berita Terpercaya</p>
-                </div>
+      <footer className="bg-gray-900 text-white mt-8">
+        <div className="px-4 py-8">
+          <div className="mb-6">
+            <div className="flex items-center space-x-2 mb-3">
+              <div className="w-8 h-8 bg-red-500 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-sm">LP</span>
               </div>
-              <p className="text-gray-400 mb-4">
-                Menyajikan berita terkini dan terpercaya dari berbagai bidang untuk masyarakat Indonesia.
-              </p>
+              <div>
+                <h3 className="text-lg font-bold">LangsaPost</h3>
+                <p className="text-gray-400 text-xs">Portal Berita Terpercaya</p>
+              </div>
             </div>
+            <p className="text-gray-400 text-sm mb-4">
+              Menyajikan berita terkini dan terpercaya dari berbagai bidang untuk masyarakat Indonesia.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4 mb-6">
             <div>
-              <h4 className="font-semibold mb-4">Kategori</h4>
-              <ul className="space-y-2 text-gray-400">
+              <h4 className="font-semibold mb-3 text-sm">Kategori</h4>
+              <ul className="space-y-1 text-gray-400 text-xs">
                 {categories.slice(0, 6).map((category) => (
                   <li key={category.slug}>
                     <Link href={`/kategori/${category.slug}`} className="hover:text-white transition-colors">
@@ -299,15 +277,16 @@ export default function LangsaPostHomepage() {
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Kontak</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li>Email: info@langsapost.com</li>
-                <li>Telepon: (021) 123-4567</li>
-                <li>Alamat: Jakarta, Indonesia</li>
+              <h4 className="font-semibold mb-3 text-sm">Kontak</h4>
+              <ul className="space-y-1 text-gray-400 text-xs">
+                <li>info@langsapost.com</li>
+                <li>(021) 123-4567</li>
+                <li>Jakarta, Indonesia</li>
               </ul>
             </div>
           </div>
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+
+          <div className="border-t border-gray-800 pt-4 text-center text-gray-400 text-xs">
             <p>&copy; 2025 LangsaPost. Semua hak cipta dilindungi.</p>
           </div>
         </div>
