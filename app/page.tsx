@@ -1,14 +1,11 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Badge } from "@/components/ui/badge"
-import { Card, CardContent } from "@/components/ui/card"
-import { Calendar, User } from "lucide-react"
+import { format } from "date-fns"
+import { id } from "date-fns/locale"
 import Image from "next/image"
 import Link from "next/link"
 import zodiacData from "@/data/zodiak.json"
-import { format } from "date-fns"
-import { id } from "date-fns/locale"
 
 const categories = [
   { name: "Politik", slug: "politik" },
@@ -38,10 +35,10 @@ function getDailyZodiacs() {
 }
 
 export default function HomePage() {
-  const [activeCategory, setActiveCategory] = useState<string | null>(null)
   const [articles, setArticles] = useState<any[]>([])
-  const dailyZodiacs = getDailyZodiacs()
+  const [activeCategory, setActiveCategory] = useState<string | null>(null)
   const todayFormatted = format(new Date(), "dd MMMM yyyy", { locale: id })
+  const dailyZodiacs = getDailyZodiacs()
 
   useEffect(() => {
     async function fetchArticles() {
@@ -59,29 +56,29 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-white text-black">
-      {/* Header */}
+      {/* HEADER */}
       <header className="bg-white border-b sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
             <div className="relative w-10 h-8">
               <Image src="/assets/logo.png" alt="LangsaPost" fill className="object-contain" />
             </div>
-            <span className="text-lg font-bold text-langsapost-600">LangsaPost</span>
+            <span className="text-lg font-bold text-red-600">LangsaPost</span>
           </Link>
           <Link href="/artikel" className="text-sm text-gray-600 hover:text-black">
             Semua Artikel
           </Link>
         </div>
 
-        {/* Kategori */}
+        {/* SLIDER KATEGORI */}
         <div className="bg-black overflow-x-auto scrollbar-hide">
-          <div className="flex flex-nowrap px-2 py-2 space-x-4 min-w-max">
+          <div className="flex px-2 py-2 space-x-4 w-max">
             {categories.map((cat) => (
               <Link
                 key={cat.slug}
                 href={`/kategori/${cat.slug}`}
                 onClick={() => setActiveCategory(cat.slug)}
-                className={`text-sm text-white font-semibold border-b-2 ${
+                className={`text-sm font-semibold text-white whitespace-nowrap border-b-2 ${
                   activeCategory === cat.slug
                     ? "border-white"
                     : "border-transparent hover:border-white"
@@ -94,16 +91,15 @@ export default function HomePage() {
         </div>
       </header>
 
-      {/* Konten Utama */}
+      {/* KONTEN */}
       <main className="container mx-auto px-4 py-6 space-y-6">
-
-        {/* Artikel Terbaru */}
+        {/* ARTIKEL */}
         <section>
-          <h2 className="text-xl font-bold mb-4 text-langsapost-600">📰 Artikel Terbaru</h2>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
+          <h2 className="text-xl font-bold mb-4 text-black">📰 Artikel Terbaru</h2>
+          <div className="grid grid-cols-1 gap-6">
             {articles.map((article) => (
               <Link href={`/artikel/${article.slug}`} key={article.id}>
-                <div className="bg-white dark:bg-zinc-900 rounded-xl overflow-hidden shadow hover:shadow-lg transition transform hover:scale-[1.01]">
+                <div className="bg-white rounded-xl overflow-hidden shadow hover:shadow-md transition">
                   <div className="relative h-48 w-full">
                     <Image
                       src={article.image_url || "/placeholder.svg"}
@@ -113,8 +109,8 @@ export default function HomePage() {
                     />
                   </div>
                   <div className="p-4 space-y-2">
-                    <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
-                      <span className="bg-langsapost-100 text-langsapost-600 px-2 py-0.5 rounded-full text-[10px] uppercase">
+                    <div className="flex items-center gap-2 text-xs text-gray-500">
+                      <span className="bg-gray-100 text-gray-800 px-2 py-0.5 rounded-full text-[10px] uppercase">
                         {article.category || "Umum"}
                       </span>
                       <span>•</span>
@@ -124,10 +120,10 @@ export default function HomePage() {
                         })}
                       </span>
                     </div>
-                    <h3 className="text-lg font-semibold leading-snug text-black dark:text-white line-clamp-2">
+                    <h3 className="text-lg font-semibold leading-snug text-black line-clamp-2">
                       {article.title}
                     </h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-3">
+                    <p className="text-sm text-gray-600 line-clamp-3">
                       {article.content?.slice(0, 100)}...
                     </p>
                   </div>
@@ -137,38 +133,36 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Zodiak Hari Ini */}
+        {/* ZODIAK HARI INI */}
         <section className="pt-6">
-          <h2 className="text-xl font-bold mb-4 text-langsapost-600">
+          <h2 className="text-xl font-bold mb-4 text-black">
             Zodiak Hari Ini, {todayFormatted}
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {dailyZodiacs.map((zodiak) => (
-              <Card key={zodiak.slug}>
-                <CardContent className="p-4 space-y-2">
-                  <div className="flex items-center gap-3">
-                    <span className="text-3xl">{zodiak.icon}</span>
-                    <div>
-                      <Link
-                        href={`/zodiak/${zodiak.slug}`}
-                        className="text-lg font-semibold hover:text-langsapost-600"
-                      >
-                        {zodiak.name}
-                      </Link>
-                      <div className="text-xs text-gray-500">{zodiak.date}</div>
-                    </div>
+              <div key={zodiak.slug} className="bg-gray-50 border rounded-md p-4 space-y-2">
+                <div className="flex items-center gap-3">
+                  <span className="text-3xl">{zodiak.icon}</span>
+                  <div>
+                    <Link
+                      href={`/zodiak/${zodiak.slug}`}
+                      className="text-lg font-semibold hover:text-red-600"
+                    >
+                      {zodiak.name}
+                    </Link>
+                    <div className="text-xs text-gray-500">{zodiak.date}</div>
                   </div>
-                  <p className="text-sm text-gray-600">
-                    {zodiak.prediction?.slice(0, 100) || "Prediksi harian belum tersedia..."}
-                  </p>
-                  <Link
-                    href={`/zodiak/${zodiak.slug}`}
-                    className="text-sm text-blue-600 hover:underline"
-                  >
-                    Baca Selengkapnya →
-                  </Link>
-                </CardContent>
-              </Card>
+                </div>
+                <p className="text-sm text-gray-700">
+                  {zodiak.prediction?.slice(0, 100) || "Prediksi harian belum tersedia..."}
+                </p>
+                <Link
+                  href={`/zodiak/${zodiak.slug}`}
+                  className="text-sm text-blue-600 hover:underline"
+                >
+                  Baca Selengkapnya →
+                </Link>
+              </div>
             ))}
           </div>
         </section>
