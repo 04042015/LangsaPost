@@ -114,8 +114,8 @@ export default function HomePage() {
           </Link>
         </div>
 
-        <div className="bg-black overflow-x-auto whitespace-nowrap">
-  <div className="flex space-x-4 px-4 py-2">
+        <<div className="bg-black overflow-x-auto whitespace-nowrap scrollbar-hide">
+  <div className="flex px-2 py-2 space-x-3">
     {categories.map((cat) => (
       <Link
         key={cat.slug}
