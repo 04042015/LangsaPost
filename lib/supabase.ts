@@ -83,6 +83,7 @@ export const articleService = {
     if (selectError) throw selectError
     return data as Article
   },
+}
   export const localStorageService = {
   getItem(key: string) {
     if (typeof window !== "undefined") {
