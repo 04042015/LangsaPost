@@ -11,6 +11,11 @@ export const metadata: Metadata = {
   authors: [{ name: "LangsaPost Team" }],
   creator: "LangsaPost",
   publisher: "LangsaPost",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   metadataBase: new URL("https://langsapost-xi.vercel.app"),
   openGraph: {
     title: "LangsaPost - Portal Berita Terpercaya",
@@ -40,12 +45,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode
-}) {
+}>) {
   return (
     <html lang="id">
-      <body className="antialiased bg-white text-black">{children}</body>
+      <body className="antialiased">{children}</body>
     </html>
   )
 }

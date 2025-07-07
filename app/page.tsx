@@ -1,121 +1,92 @@
 "use client"
 
-import Link from "next/link"
-import Image from "next/image"
 import { useEffect, useState } from "react"
-import { format } from "date-fns"
-import { id } from "date-fns/locale"
-
-const categories = [
-  { name: "Politik", slug: "politik" },
-  { name: "Ekonomi", slug: "ekonomi" },
-  { name: "Olahraga", slug: "olahraga" },
-  { name: "Teknologi", slug: "teknologi" },
-  { name: "Internasional", slug: "internasional" },
-  { name: "Nasional", slug: "nasional" },
-  { name: "Hiburan", slug: "hiburan" },
-  { name: "Kesehatan", slug: "kesehatan" },
-  { name: "Pendidikan", slug: "pendidikan" },
-  { name: "Otomotif", slug: "otomotif" },
-  { name: "Langsa", slug: "langsa" },
-  { name: "Loker", slug: "loker" },
-  { name: "Zodiak", slug: "zodiak" },
-]
+import Link from "next/link"
 
 export default function HomePage() {
-  const [activeCategory, setActiveCategory] = useState<string | null>(null)
-  const [articles, setArticles] = useState<any[]>([])
-  const todayFormatted = format(new Date(), "dd MMMM yyyy", { locale: id })
+  const [artikel, setArtikel] = useState<any[]>([])
+  const [zodiak, setZodiak] = useState<any[]>([])
 
   useEffect(() => {
-    async function fetchArticles() {
-      const res = await fetch("https://batyohvfirsxgduloyvq.supabase.co/rest/v1/articles?select=*", {
-        headers: {
-          apikey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!}`,
-        },
-      })
-      const data = await res.json()
-      setArticles(data.filter((a: any) => a.status === "published"))
-    }
-    fetchArticles()
+    fetch("/api/artikel")
+      .then((res) => res.json())
+      .then((data) => setArtikel(data))
+
+    fetch("/api/zodiak-harian")
+      .then((res) => res.json())
+      .then((data) => setZodiak(data))
   }, [])
 
+  const kategori = [
+    "Politik",
+    "Internasional",
+    "Nasional",
+    "Ekonomi",
+    "Teknologi",
+    "Olahraga",
+    "Kesehatan",
+    "Pendidikan",
+    "Hiburan",
+    "Otomotif",
+    "Langsa",
+    "Loker",
+    "Zodiak",
+  ]
+
   return (
-    <div className="min-h-screen bg-white text-black">
-      <header className="bg-white border-b sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="relative w-10 h-8">
-              <Image src="/assets/logo.png" alt="LangsaPost" fill className="object-contain" />
+    <main className="p-4 max-w-screen-xl mx-auto">
+      <h1 className="text-xl font-bold mb-4">LangsaPost</h1>
+
+      {/* Kategori */}
+      <div className="flex overflow-x-auto gap-2 mb-6 scrollbar-hide">
+        {kategori.map((kat) => (
+          <Link
+            key={kat}
+            href={`/kategori/${kat.toLowerCase()}`}
+            className="px-4 py-2 whitespace-nowrap bg-gray-100 dark:bg-gray-800 rounded-lg text-sm hover:bg-gray-300 dark:hover:bg-gray-700 transition"
+          >
+            {kat}
+          </Link>
+        ))}
+      </div>
+
+      {/* Artikel */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+        {artikel.map((item) => (
+          <Link
+            key={item.slug}
+            href={`/artikel/${item.slug}`}
+            className="border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition bg-white dark:bg-gray-900"
+          >
+            <div className="p-4">
+              <h2 className="text-lg font-semibold">{item.title}</h2>
+              <p className="text-xs text-gray-500 mt-2">{item.date}</p>
             </div>
-            <span className="text-lg font-bold text-langsapost-600">LangsaPost</span>
           </Link>
-          <Link href="/artikel" className="text-sm text-gray-600 hover:text-black">
-            Semua Artikel
-          </Link>
-        </div>
+        ))}
+      </div>
 
-        <div className="bg-black overflow-x-auto scrollbar-hide whitespace-nowrap">
-          <div className="flex px-2 py-2 space-x-3 min-w-max">
-            {categories.map((cat) => (
+      {/* Zodiak Harian */}
+      <section className="mt-10">
+        <h2 className="text-lg font-semibold mb-4">Zodiak Hari Ini</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+          {zodiak.map((zod: any) => (
+            <div
+              key={zod.slug}
+              className="bg-gray-100 dark:bg-gray-800 p-4 rounded-xl shadow-sm"
+            >
+              <h3 className="font-bold">{zod.title}</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-3 mt-1">{zod.content}</p>
               <Link
-                key={cat.slug}
-                href={`/kategori/${cat.slug}`}
-                onClick={() => setActiveCategory(cat.slug)}
-                className={`text-sm text-white font-semibold border-b-2 ${
-                  activeCategory === cat.slug
-                    ? "border-white"
-                    : "border-transparent hover:border-white"
-                } pb-1`}
+                href={`/zodiak/${zod.slug}`}
+                className="text-blue-600 text-xs underline mt-2 inline-block"
               >
-                {cat.name}
+                Baca selengkapnya
               </Link>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
-      </header>
-
-      <main className="container mx-auto px-4 py-6 space-y-6">
-        <section>
-          <h2 className="text-xl font-bold mb-4 text-langsapost-600">📰 Artikel Terbaru</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {articles.map((article) => (
-              <Link href={`/artikel/${article.slug}`} key={article.id}>
-                <div className="bg-white rounded-xl overflow-hidden shadow hover:shadow-lg transition">
-                  <div className="relative h-48 w-full">
-                    <Image
-                      src={article.image_url || "/placeholder.svg"}
-                      alt={article.title}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="p-4 space-y-2">
-                    <div className="flex items-center gap-2 text-xs text-gray-500">
-                      <span className="bg-langsapost-100 text-langsapost-600 px-2 py-0.5 rounded-full text-[10px] uppercase">
-                        {article.category || "Umum"}
-                      </span>
-                      <span>•</span>
-                      <span>
-                        {new Date(article.created_at).toLocaleDateString("id-ID", {
-                          dateStyle: "medium",
-                        })}
-                      </span>
-                    </div>
-                    <h3 className="text-lg font-semibold leading-snug text-black line-clamp-2">
-                      {article.title}
-                    </h3>
-                    <p className="text-sm text-gray-600 line-clamp-3">
-                      {article.content?.slice(0, 100)}...
-                    </p>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </section>
-      </main>
-    </div>
+      </section>
+    </main>
   )
 }
