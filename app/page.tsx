@@ -115,23 +115,23 @@ export default function HomePage() {
         </div>
 
         <div className="bg-black overflow-x-auto whitespace-nowrap">
-          <div className="flex space-x-4 px-4 py-2">
-            {categories.map((cat) => (
-              <Link
-                key={cat.slug}
-                href={`/kategori/${cat.slug}`}
-                onClick={() => setActiveCategory(cat.slug)}
-                className={`text-sm text-white font-semibold border-b-2 ${
-                  activeCategory === cat.slug
-                    ? "border-white"
-                    : "border-transparent hover:border-white"
-                } pb-1`}
-              >
-                {cat.name}
-              </Link>
-            ))}
-          </div>
-        </div>
+  <div className="flex space-x-4 px-4 py-2">
+    {categories.map((cat) => (
+      <Link
+        key={cat.slug}
+        href={`/kategori/${cat.slug}`}
+        onClick={() => setActiveCategory(cat.slug)}
+        className={`text-sm text-white font-semibold border-b-2 ${
+          activeCategory === cat.slug
+            ? "border-white"
+            : "border-transparent hover:border-white"
+        } pb-1`}
+      >
+        {cat.name}
+      </Link>
+    ))}
+  </div>
+</div>
       </header>
 
       {/* Konten Utama */}
