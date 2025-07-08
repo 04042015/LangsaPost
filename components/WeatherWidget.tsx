@@ -1,98 +1,55 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { Cloud, Sun, CloudRain, Wind, Thermometer } from "lucide-react"
+import { useEffect, useState } from "react"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { CloudSun, MapPin, Thermometer } from "lucide-react"
 
 interface WeatherData {
-  location: string
-  temperature: number
-  condition: string
-  humidity: number
-  windSpeed: number
-  icon: "sun" | "cloud" | "rain"
+  temp: number
+  city: string
+  description: string
 }
 
+/**
+ * NOTE:
+ * - Komponen ini hanya demo; ganti dengan fetch ke API cuaca (OpenWeatherMap, dsb.)
+ * - Diletakkan di `components/WeatherWidget.tsx` supaya path import di `app/page.tsx`
+ *   (`@/components/WeatherWidget`) valid.
+ */
 export default function WeatherWidget() {
   const [weather, setWeather] = useState<WeatherData | null>(null)
-  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Simulate weather API call
-    const fetchWeather = async () => {
-      // In real app, this would be an actual weather API call
-      setTimeout(() => {
-        setWeather({
-          location: "Langsa, Aceh",
-          temperature: 28,
-          condition: "Berawan",
-          humidity: 75,
-          windSpeed: 12,
-          icon: "cloud",
-        })
-        setLoading(false)
-      }, 1000)
-    }
-
-    fetchWeather()
+    // TODO: fetch API cuaca di production
+    // Mock data
+    setWeather({
+      temp: 30,
+      city: "Langsa",
+      description: "Cerah Berawan",
+    })
   }, [])
-
-  const getWeatherIcon = (icon: string) => {
-    switch (icon) {
-      case "sun":
-        return <Sun className="w-8 h-8 text-yellow-500" />
-      case "cloud":
-        return <Cloud className="w-8 h-8 text-gray-500" />
-      case "rain":
-        return <CloudRain className="w-8 h-8 text-blue-500" />
-      default:
-        return <Sun className="w-8 h-8 text-yellow-500" />
-    }
-  }
-
-  if (loading) {
-    return (
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border p-4">
-        <div className="animate-pulse">
-          <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded mb-2"></div>
-          <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded mb-2"></div>
-          <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded"></div>
-        </div>
-      </div>
-    )
-  }
 
   if (!weather) return null
 
   return (
-    <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-lg shadow-sm p-4">
-      <div className="flex items-center justify-between mb-3">
-        <div>
-          <h3 className="font-semibold text-sm opacity-90">Cuaca Hari Ini</h3>
-          <p className="text-xs opacity-75">{weather.location}</p>
+    <Card>
+      <CardHeader className="flex items-center gap-2">
+        <CloudSun className="h-5 w-5 text-yellow-500" />
+        <CardTitle>Cuaca Hari Ini</CardTitle>
+      </CardHeader>
+      <CardContent className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <Thermometer className="h-5 w-5 text-red-500" />
+          <span className="text-2xl font-bold">{weather.temp}°C</span>
         </div>
-        {getWeatherIcon(weather.icon)}
-      </div>
-
-      <div className="flex items-center justify-between mb-3">
-        <div>
-          <div className="flex items-center space-x-1">
-            <Thermometer className="w-4 h-4" />
-            <span className="text-2xl font-bold">{weather.temperature}°C</span>
-          </div>
-          <p className="text-sm opacity-90">{weather.condition}</p>
+        <div className="text-right">
+          <p className="text-sm capitalize">{weather.description}</p>
+          <p className="flex items-center gap-1 text-xs text-muted-foreground">
+            <MapPin className="h-3 w-3" />
+            {weather.city}
+          </p>
         </div>
-      </div>
-
-      <div className="grid grid-cols-2 gap-3 text-xs">
-        <div className="flex items-center space-x-1">
-          <div className="w-2 h-2 bg-white rounded-full opacity-75"></div>
-          <span>Kelembaban: {weather.humidity}%</span>
-        </div>
-        <div className="flex items-center space-x-1">
-          <Wind className="w-3 h-3" />
-          <span>Angin: {weather.windSpeed} km/h</span>
-        </div>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   )
 }
