@@ -7,7 +7,8 @@ export async function getPublishedArticles(): Promise<Article[]> {
   const { data, error } = await supabase
     .from("articles")
     .select("*")
-    .eq("status", "published")
+    .eq('status', 'published')
+    .order('created_at', { ascending: false });  // Ganti published_at → created_at
     .order("published_at", { ascending: false })
 
   if (error) {
