@@ -1,41 +1,13 @@
 import Header from "@/components/Header"
 import CategoryNav from "@/components/CategoryNav"
 import Footer from "@/components/Footer"
-import ArticleCard from "@/components/ArticleCard"
+import ArticleCardSupabase from "@/components/ArticleCardSupabase"
 import { Search } from "lucide-react"
+import { getPublishedArticles } from "@/lib/supabase-articles"
 
-// Sample data - expanded
-const articles = [
-  {
-    id: 1,
-    title: "Presiden Jokowi Resmikan Infrastruktur Baru di Aceh",
-    excerpt:
-      "Presiden Joko Widodo meresmikan pembangunan infrastruktur strategis di Provinsi Aceh yang diharapkan dapat meningkatkan perekonomian daerah.",
-    category: "Politik",
-    categorySlug: "politik",
-    author: "Ahmad Rizki",
-    date: "08 Jul 2025",
-    slug: "presiden-jokowi-resmikan-infrastruktur-baru-di-aceh",
-    image: "/placeholder.svg?height=300&width=400",
-    views: 2850,
-  },
-  {
-    id: 2,
-    title: "5 Tips Agar Imun Tubuh Tetap Kuat Tanpa Obat",
-    excerpt:
-      "Sistem imun yang kuat adalah pertahanan utama tubuh dari penyakit. Berikut cara alami meningkatkan imunitas tubuh Anda.",
-    category: "Kesehatan",
-    categorySlug: "kesehatan",
-    author: "Dr. Sarah Amelia",
-    date: "07 Jul 2025",
-    slug: "5-tips-agar-imun-tubuh-tetap-kuat-tanpa-obat",
-    image: "/placeholder.svg?height=300&width=400",
-    views: 2100,
-  },
-  // Add more articles...
-]
+export default async function ArtikelPage() {
+  const articles = await getPublishedArticles()
 
-export default function ArtikelPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
@@ -66,6 +38,8 @@ export default function ArtikelPage() {
                 <option value="ekonomi">Ekonomi</option>
                 <option value="olahraga">Olahraga</option>
                 <option value="teknologi">Teknologi</option>
+                <option value="kesehatan">Kesehatan</option>
+                <option value="langsa">Langsa</option>
               </select>
               <select className="px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
                 <option value="terbaru">Terbaru</option>
@@ -77,24 +51,44 @@ export default function ArtikelPage() {
         </div>
 
         {/* Articles Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          {articles.map((article) => (
-            <ArticleCard key={article.id} article={article} />
-          ))}
-        </div>
+        {articles.length > 0 ? (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+              {articles.map((article) => (
+                <ArticleCardSupabase key={article.id} article={article} />
+              ))}
+            </div>
 
-        {/* Pagination */}
-        <div className="flex justify-center">
-          <nav className="flex items-center space-x-2">
-            <button className="px-3 py-2 text-gray-500 hover:text-gray-700 disabled:opacity-50" disabled>
-              ← Sebelumnya
-            </button>
-            <button className="px-3 py-2 bg-red-500 text-white rounded">1</button>
-            <button className="px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">2</button>
-            <button className="px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">3</button>
-            <button className="px-3 py-2 text-gray-700 hover:text-gray-900">Selanjutnya →</button>
-          </nav>
-        </div>
+            {/* Pagination */}
+            <div className="flex justify-center">
+              <nav className="flex items-center space-x-2">
+                <button className="px-3 py-2 text-gray-500 hover:text-gray-700 disabled:opacity-50" disabled>
+                  ← Sebelumnya
+                </button>
+                <button className="px-3 py-2 bg-red-500 text-white rounded">1</button>
+                <button className="px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">2</button>
+                <button className="px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">3</button>
+                <button className="px-3 py-2 text-gray-700 hover:text-gray-900">Selanjutnya →</button>
+              </nav>
+            </div>
+          </>
+        ) : (
+          <div className="text-center py-16">
+            <div className="max-w-md mx-auto">
+              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Search className="w-8 h-8 text-gray-400" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Belum Ada Artikel</h3>
+              <p className="text-gray-500 mb-6">Artikel akan muncul di sini setelah dipublikasi dari admin panel</p>
+              <a
+                href="/admin"
+                className="inline-block px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
+              >
+                Buat Artikel Pertama
+              </a>
+            </div>
+          </div>
+        )}
       </main>
 
       <Footer />
