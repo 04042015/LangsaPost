@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { Home, Search, ArrowLeft } from "lucide-react"
+import { useRouter } from 'next/navigation'
 
 const router = useRouter()
 
