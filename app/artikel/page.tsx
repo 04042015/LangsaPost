@@ -60,8 +60,7 @@ export default async function ArtikelPage() {
 
         {/* Articles Grid */}
         <ArtikelClient articles={articles} />
-              ))}
-            </div>
+            <div>Belum ada artikel</div>
 
             {/* Pagination */}
             <div className="flex justify-center">
