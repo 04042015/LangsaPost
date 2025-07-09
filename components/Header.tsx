@@ -9,15 +9,16 @@ import DarkModeToggle from "./DarkModeToggle"
 import VoiceSearch from "./VoiceSearch"
 import NotificationManager from "./NotificationManager"
 import MultiLanguageTranslator from "./MultiLanguageTranslator"
+import { useRouter } from 'next/navigation'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
-
+  const router = useRoute
   const handleSearch = (e: React.FormEvent) => {
   e.preventDefault()
   if (searchQuery.trim()) {
-    router.push(`/search?q=${encodeURIComponent(searchQuery)}`)
+  router.push(`/search?q=${encodeURIComponent(searchQuery)}`)
     }
   }
 
