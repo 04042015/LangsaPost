@@ -2,12 +2,7 @@ import Header from "@/components/Header";
 import CategoryNav from "@/components/CategoryNav";
 import Footer from "@/components/Footer";
 import { getPublishedArticles } from "@/lib/supabase-articles";
-import dynamic from "next/dynamic";
-
-// ✅ Gunakan dynamic import untuk hindari error window saat build
-const ArtikelClient = dynamic(() => import("./ArtikelClient"), {
-  ssr: false, // <--- ini penting!
-});
+import ClientWrapper from "./ClientWrapper"; // ✅ wrapper untuk ArtikelClient
 
 export default async function ArtikelPage() {
   const articles = await getPublishedArticles();
@@ -23,8 +18,8 @@ export default async function ArtikelPage() {
           Temukan berita dan artikel terkini dari berbagai kategori
         </p>
 
-        {/* ✅ ArtikelClient hanya dirender di client */}
-        <ArtikelClient articles={articles} />
+        {/* ✅ ArtikelClient hanya dijalankan di client-side */}
+        <ClientWrapper articles={articles} />
       </main>
 
       <Footer />
