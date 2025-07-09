@@ -4,8 +4,10 @@ import Footer from "@/components/Footer"
 import ArticleCardSupabase from "@/components/ArticleCardSupabase"
 import { Search } from "lucide-react"
 import { getPublishedArticles } from "@/lib/supabase-articles"
+import { useRouter } from 'next/navigation'
 
 export default async function ArtikelPage() {
+  const router = useRouter()
   const articles = await getPublishedArticles()
 
   return (
