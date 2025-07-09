@@ -59,11 +59,7 @@ export default async function ArtikelPage() {
         </div>
 
         {/* Articles Grid */}
-        {articles.length > 0 ? (
-          <>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-              {articles.map((article) => (
-                <ArticleCardSupabase key={article.id} article={article} />
+        <ArtikelClient articles={articles} />
               ))}
             </div>
 
