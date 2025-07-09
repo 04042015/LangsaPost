@@ -35,11 +35,18 @@ export default async function ArtikelPage() {
               <select className="px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
                 <option value="">Semua Kategori</option>
                 <option value="politik">Politik</option>
-                <option value="ekonomi">Ekonomi</option>
-                <option value="olahraga">Olahraga</option>
-                <option value="teknologi">Teknologi</option>
-                <option value="kesehatan">Kesehatan</option>
-                <option value="langsa">Langsa</option>
+            <option value="ekonomi">Ekonomi</option>
+            <option value="olahraga">Olahraga</option>
+            <option value="teknologi">Teknologi</option>
+            <option value="kesehatan">Kesehatan</option>
+            <option value="internasional">Internasional</option>
+            <option value="nasional">Nasional</option>
+            <option value="hiburan">Hiburan</option>
+            <option value="pendidikan">Pendidikan</option>
+            <option value="otomotif">Otomotif</option>
+            <option value="langsa">Langsa</option>
+            <option value="loker">Loker</option>
+            <option value="zodiak">Zodiak</option>
               </select>
               <select className="px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
                 <option value="terbaru">Terbaru</option>
