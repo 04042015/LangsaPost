@@ -4,9 +4,8 @@ import Link from "next/link"
 import { Home, Search, ArrowLeft } from "lucide-react"
 import { useRouter } from 'next/navigation'
 
-const router = useRouter()
-
 export default function NotFound() {
+  const router = useRouter()
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
       <div className="max-w-md w-full text-center">
