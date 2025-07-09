@@ -15,9 +15,9 @@ export default function Header() {
   const [searchQuery, setSearchQuery] = useState("")
 
   const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (searchQuery.trim()) {
-      window.location.href = `/search?q=${encodeURIComponent(searchQuery)}`
+  e.preventDefault()
+  if (searchQuery.trim()) {
+    router.push(`/search?q=${encodeURIComponent(searchQuery)}`)
     }
   }
 
