@@ -9,7 +9,6 @@ export async function getPublishedArticles(): Promise<Article[]> {
     .select("*")
     .eq('status', 'published')
     .order('created_at', { ascending: false });  // Ganti published_at → created_at
-    .order("published_at", { ascending: false })
 
   if (error) {
     console.error("Error fetching articles:", error)
