@@ -1,7 +1,6 @@
 import Header from "@/components/Header"
 import CategoryNav from "@/components/CategoryNav"
 import Footer from "@/components/Footer"
-import ArticleCardSupabase from "@/components/ArticleCardSupabase"
 import { Search } from "lucide-react"
 import { getPublishedArticles } from "@/lib/supabase-articles"
 import ArtikelClient from "./ArtikelClient"
@@ -36,18 +35,18 @@ export default async function ArtikelPage() {
               <select className="px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
                 <option value="">Semua Kategori</option>
                 <option value="politik">Politik</option>
-            <option value="ekonomi">Ekonomi</option>
-            <option value="olahraga">Olahraga</option>
-            <option value="teknologi">Teknologi</option>
-            <option value="kesehatan">Kesehatan</option>
-            <option value="internasional">Internasional</option>
-            <option value="nasional">Nasional</option>
-            <option value="hiburan">Hiburan</option>
-            <option value="pendidikan">Pendidikan</option>
-            <option value="otomotif">Otomotif</option>
-            <option value="langsa">Langsa</option>
-            <option value="loker">Loker</option>
-            <option value="zodiak">Zodiak</option>
+                <option value="ekonomi">Ekonomi</option>
+                <option value="olahraga">Olahraga</option>
+                <option value="teknologi">Teknologi</option>
+                <option value="kesehatan">Kesehatan</option>
+                <option value="internasional">Internasional</option>
+                <option value="nasional">Nasional</option>
+                <option value="hiburan">Hiburan</option>
+                <option value="pendidikan">Pendidikan</option>
+                <option value="otomotif">Otomotif</option>
+                <option value="langsa">Langsa</option>
+                <option value="loker">Loker</option>
+                <option value="zodiak">Zodiak</option>
               </select>
               <select className="px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
                 <option value="terbaru">Terbaru</option>
@@ -59,11 +58,12 @@ export default async function ArtikelPage() {
         </div>
 
         {/* Articles Grid */}
-        <ArtikelClient articles={articles} />
-            <div>Belum ada artikel</div>
+        {articles.length > 0 ? (
+          <>
+            <ArtikelClient articles={articles} />
 
             {/* Pagination */}
-            <div className="flex justify-center">
+            <div className="flex justify-center mt-8">
               <nav className="flex items-center space-x-2">
                 <button className="px-3 py-2 text-gray-500 hover:text-gray-700 disabled:opacity-50" disabled>
                   ← Sebelumnya
@@ -82,7 +82,9 @@ export default async function ArtikelPage() {
                 <Search className="w-8 h-8 text-gray-400" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">Belum Ada Artikel</h3>
-              <p className="text-gray-500 mb-6">Artikel akan muncul di sini setelah dipublikasi dari admin panel</p>
+              <p className="text-gray-500 mb-6">
+                Artikel akan muncul di sini setelah dipublikasi dari admin panel
+              </p>
               <a
                 href="/admin"
                 className="inline-block px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
@@ -97,4 +99,4 @@ export default async function ArtikelPage() {
       <Footer />
     </div>
   )
-}
+                  }
