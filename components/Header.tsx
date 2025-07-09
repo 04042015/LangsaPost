@@ -14,7 +14,7 @@ import { useRouter } from 'next/navigation'
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
-  const router = useRoute
+  const router = useRouter()
   const handleSearch = (e: React.FormEvent) => {
   e.preventDefault()
   if (searchQuery.trim()) {
