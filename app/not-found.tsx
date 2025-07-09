@@ -3,6 +3,8 @@
 import Link from "next/link"
 import { Home, Search, ArrowLeft } from "lucide-react"
 
+const router = useRouter()
+
 export default function NotFound() {
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
@@ -35,7 +37,7 @@ export default function NotFound() {
           </Link>
 
           <button
-            onClick={() => window.history.back()}
+            onClick={() => router.back()}
             className="w-full text-gray-500 hover:text-gray-700 font-medium py-3 px-6 transition-colors flex items-center justify-center space-x-2"
           >
             <ArrowLeft className="w-4 h-4" />
