@@ -7,7 +7,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    unoptimized: true,
+    domains: [https://batyohvfirsxgduloyvq.supabase.co],
   },
 }
 
