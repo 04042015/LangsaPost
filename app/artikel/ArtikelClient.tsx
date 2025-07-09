@@ -3,16 +3,7 @@
 import { useState, useMemo } from "react"
 import { Search } from "lucide-react"
 import ArticleCardSupabase from "@/components/ArticleCardSupabase"
-
-interface Article {
-  id: string
-  title: string
-  excerpt: string
-  image_url: string
-  category: string
-  published_at: string
-  author: string
-}
+import type { Article } from "./types"
 
 export default function ArtikelClient({ articles }: { articles: Article[] }) {
   const [searchTerm, setSearchTerm] = useState("")
@@ -22,7 +13,6 @@ export default function ArtikelClient({ articles }: { articles: Article[] }) {
   const filteredArticles = useMemo(() => {
     let filtered = [...articles]
 
-    // Filter by search
     if (searchTerm.trim() !== "") {
       const term = searchTerm.toLowerCase()
       filtered = filtered.filter(article =>
@@ -32,20 +22,15 @@ export default function ArtikelClient({ articles }: { articles: Article[] }) {
       )
     }
 
-    // Filter by category
     if (selectedCategory) {
       filtered = filtered.filter(article => article.category === selectedCategory)
     }
 
-    // Sort
     switch (sortBy) {
       case "terlama":
         filtered.sort((a, b) => new Date(a.published_at).getTime() - new Date(b.published_at).getTime())
         break
-      case "terpopuler":
-        // Jika belum ada data 'views' atau 'likes', kamu bisa pakai sort dummy di sini
-        break
-      default: // terbaru
+      default:
         filtered.sort((a, b) => new Date(b.published_at).getTime() - new Date(a.published_at).getTime())
         break
     }
@@ -55,10 +40,8 @@ export default function ArtikelClient({ articles }: { articles: Article[] }) {
 
   return (
     <div>
-      {/* Search & Filter */}
       <div className="bg-white rounded-lg shadow-sm border p-6 mb-8">
         <div className="flex flex-col md:flex-row gap-4">
-          {/* Search Input */}
           <div className="flex-1 relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
             <input
@@ -70,7 +53,6 @@ export default function ArtikelClient({ articles }: { articles: Article[] }) {
             />
           </div>
 
-          {/* Filters */}
           <div className="flex gap-2">
             <select
               value={selectedCategory}
@@ -106,7 +88,6 @@ export default function ArtikelClient({ articles }: { articles: Article[] }) {
         </div>
       </div>
 
-      {/* Articles Grid */}
       {filteredArticles.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           {filteredArticles.map((article) => (
@@ -120,4 +101,4 @@ export default function ArtikelClient({ articles }: { articles: Article[] }) {
       )}
     </div>
   )
-                                                                              }
+    }
