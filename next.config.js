@@ -7,7 +7,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    domains: [batyohvfirsxgduloyvq.supabase.co],
+    domains: ['batyohvfirsxgduloyvq.supabase.co'],
   },
 }
 
