@@ -58,9 +58,8 @@ export default async function ArtikelPage() {
         </div>
 
         {/* Articles Grid */}
-        {articles.length > 0 ? (
-          <>
             <ArtikelClient articles={articles} />
+       </main>
       <Footer />
     </div>
   )
