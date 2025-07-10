@@ -16,6 +16,7 @@ import ArticleCard from "@/components/ArticleCard"
 import Footer from "@/components/Footer"
 import PWAInstallPrompt from "@/components/PWAInstallPrompt"
 import LiveChat from "@/components/SmartChatbot"
+import TrendingTopics from "@/components/TrendingTopics";
 
 // Sample data - in real app, this would come from a database
 const articles = [
