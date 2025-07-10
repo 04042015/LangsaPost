@@ -1,3 +1,7 @@
+'use client' 
+
+import { useEffect } from 'react'
+import { NotificationManager } from 'react-notifications'
 import Header from "@/components/Header"
 import DynamicClientWidgets from './_components/DynamicClientWidgets'
 
@@ -87,7 +91,10 @@ const articles = [
 export default function HomePage() {
   const featuredArticle = articles.find((article) => article.featured)
   const regularArticles = articles.filter((article) => !article.featured)
-
+ useEffect(() => {
+  NotificationManager.success('Selamat datang di LangsaPost!', 'Berhasil')
+}, [])
+  
   return (
     <div className="min-h-screen bg-gray-50">
       <Header>
