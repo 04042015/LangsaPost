@@ -9,10 +9,11 @@ import { useEffect, useState } from 'react'
 export default function KontakClient() {
   const [width, setWidth] = useState(0)
 
-  useEffect(() => {
+useEffect(() => {
+  if (typeof window !== 'undefined') {
     setWidth(window.innerWidth)
-  }, [])
-
+  }
+}, [])
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
