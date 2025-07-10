@@ -1,5 +1,3 @@
-'use client'
-
 import Header from "@/components/Header"
 import type React from "react"
 import type { Metadata } from "next"
