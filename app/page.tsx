@@ -1,3 +1,4 @@
+import Header from './_components/Header' ,
 import DynamicClientWidgets from './_components/DynamicClientWidgets'
 
 // Sample data - in real app, this would come from a database
