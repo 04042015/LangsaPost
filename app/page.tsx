@@ -5,6 +5,16 @@ import Header from "@/components/Header"
 import DynamicClientWidgets from './_components/DynamicClientWidgets'
 import CategoryNav from "@/components/CategoryNav"
 import LiveBreakingNews from "@/components/LiveBreakingNews";
+import WeatherWidget from "@/components/WeatherWidget"
+import LivePolls from "@/components/LivePolls"
+import AIRecommendations from "@/components/AIRecommendations"
+import SocialMediaFeed from "@/components/SocialMediaFeed"
+import ReadingAchievements from "@/components/ReadingAchievements"
+import InteractiveChart from "@/components/InteractiveChart"
+import ArticleCard from "@/components/ArticleCard"
+import Footer from "@/components/Footer"
+import PWAInstallPrompt from "@/components/PWAInstallPrompt"
+import LiveChat from "@/components/SmartChatbot"
 
 // Sample data - in real app, this would come from a database
 const articles = [
