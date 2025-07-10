@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import Header from "@/components/Header"
 import DynamicClientWidgets from './_components/DynamicClientWidgets'
 import CategoryNav from "@/components/CategoryNav"
+import LiveBreakingNews from "@/components/LiveBreakingNews";
 
 // Sample data - in real app, this would come from a database
 const articles = [
