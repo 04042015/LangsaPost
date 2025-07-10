@@ -1,7 +1,7 @@
-import dynamic from "next/dynamic"
+'use client';
 
-const KontakClient = dynamic(() => import("./KontakClient"), { ssr: false })
+import KontakClient from './KontakClient';
 
 export default function Page() {
-  return <KontakClient />
+  return <KontakClient />;
 }
