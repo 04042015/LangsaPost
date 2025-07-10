@@ -1,6 +1,6 @@
 'use client';
 
-import Header from "@/components/Header"
+import Header from '@/_components/Header'
 import CategoryNav from "@/components/CategoryNav"
 import Footer from "@/components/Footer"
 import { Shield, Eye, Cookie, Mail } from "lucide-react"
