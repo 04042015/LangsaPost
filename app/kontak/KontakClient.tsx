@@ -7,6 +7,12 @@ import { Mail, Phone, MapPin, Clock, Send } from "lucide-react"
 import { useEffect, useState } from 'react'
 
 export default function KontakClient() {
+  const [width, setWidth] = useState(0)
+
+  useEffect(() => {
+    setWidth(window.innerWidth)
+  }, [])
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
