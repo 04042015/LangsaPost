@@ -1,7 +1,6 @@
 'use client' 
 
 import { useEffect } from 'react'
-import { NotificationManager } from 'react-notifications'
 import Header from "@/components/Header"
 import DynamicClientWidgets from './_components/DynamicClientWidgets'
 
@@ -91,14 +90,9 @@ const articles = [
 export default function HomePage() {
   const featuredArticle = articles.find((article) => article.featured)
   const regularArticles = articles.filter((article) => !article.featured)
- useEffect(() => {
-  NotificationManager.success('Selamat datang di LangsaPost!', 'Berhasil')
-}, [])
   
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header>
-        <NotificationManager />
       </Header>
       <CategoryNav />
       <LiveBreakingNews />
@@ -119,7 +113,7 @@ export default function HomePage() {
             <section>
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-2xl font-bold text-gray-900">Berita Terkini</h2>
-                <Link href="/artikel" className="text-red-500 hover:text-red-600 font-medium flex items-center">
+              <Link href="/artikel" className="text-red-500 hover:text-red-600 font-medium flex items-center">
                   Lihat Semua →
                 </Link>
               </div>
