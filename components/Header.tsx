@@ -7,7 +7,6 @@ import { Search, Menu, X } from "lucide-react"
 import { useState } from "react"
 import DarkModeToggle from "./DarkModeToggle"
 import VoiceSearch from "./VoiceSearch"
-import NotificationManager from "./NotificationManager"
 import MultiLanguageTranslator from "./MultiLanguageTranslator"
 import { useRouter } from 'next/navigation'
 
@@ -58,7 +57,6 @@ export default function Header() {
 
           {/* Search Bar - Desktop */}
           <div className="hidden md:flex items-center space-x-4">
-            <NotificationManager />
             <VoiceSearch />
             <MultiLanguageTranslator />
             <DarkModeToggle />
