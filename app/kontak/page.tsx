@@ -1,5 +1,6 @@
 'use client';
 
+import Header from '@/_components/Header'
 import dynamic from 'next/dynamic';
 
 const KontakClient = dynamic(() => import('./KontakClient'), {
