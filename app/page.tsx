@@ -1,21 +1,14 @@
-'use client';
+import dynamic from 'next/dynamic'
 
-import Header from "@/components/Header"
-import CategoryNav from "@/components/CategoryNav"
-import Footer from "@/components/Footer"
-import ArticleCard from "@/components/ArticleCard"
-import Link from "next/link"
-import LiveBreakingNews from "@/components/LiveBreakingNews"
-import WeatherWidget from "@/components/WeatherWidget"
-import TrendingTopics from "@/components/TrendingTopics"
-import PWAInstallPrompt from "@/components/PWAInstallPrompt"
-import LiveChat from "@/components/LiveChat"
-import NotificationManager from "@/components/NotificationManager"
-import AIRecommendations from "@/components/AIRecommendations"
-import InteractiveChart from "@/components/InteractiveChart"
-import LivePolls from "@/components/LivePolls"
-import SocialMediaFeed from "@/components/SocialMediaFeed"
-import ReadingAchievements from "@/components/ReadingAchievements"
+const WeatherWidget = dynamic(() => import('@/components/WeatherWidget'), { ssr: false })
+const LiveChat = dynamic(() => import('@/components/LiveChat'), { ssr: false })
+const PWAInstallPrompt = dynamic(() => import('@/components/PWAInstallPrompt'), { ssr: false })
+const NotificationManager = dynamic(() => import('@/components/NotificationManager'), { ssr: false })
+const InteractiveChart = dynamic(() => import('@/components/InteractiveChart'), { ssr: false })
+const LivePolls = dynamic(() => import('@/components/LivePolls'), { ssr: false })
+const SocialMediaFeed = dynamic(() => import('@/components/SocialMediaFeed'), { ssr: false })
+const ReadingAchievements = dynamic(() => import('@/components/ReadingAchievements'), { ssr: false })
+const AIRecommendations = dynamic(() => import('@/components/AIRecommendations'), { ssr: false })
 
 // Sample data - in real app, this would come from a database
 const articles = [
