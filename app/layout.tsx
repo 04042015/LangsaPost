@@ -1,5 +1,5 @@
-'use client' 
-  
+'use client'
+
 import Header from "@/components/Header"
 import type React from "react"
 import type { Metadata } from "next"
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-    generator: 'v0.dev'
+  generator: 'v0.dev'
 }
 
 export default function RootLayout({
@@ -55,12 +55,13 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         {children}
+        <NotificationContainer />
         <script
           dangerouslySetInnerHTML={{
             __html: `
               if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
-  window.addEventListener('load', function () {
-    navigator.serviceWorker.register('/sw.js')
+                window.addEventListener('load', function () {
+                  navigator.serviceWorker.register('/sw.js')
                     .then(function(registration) {
                       console.log('SW registered: ', registration);
                     })
@@ -73,7 +74,6 @@ export default function RootLayout({
           }}
         />
       </body>
-       <NotificationContainer />
     </html>
   )
 }
