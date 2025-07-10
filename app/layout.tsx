@@ -1,4 +1,4 @@
-import Header from './_components/Header'
+import Header from "@/components/Header"
 import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
