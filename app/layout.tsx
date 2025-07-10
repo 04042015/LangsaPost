@@ -1,8 +1,11 @@
+'use client' 
+  
 import Header from "@/components/Header"
 import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
+import { NotificationContainer } from 'react-notifications'
 import 'react-notifications/lib/notifications.css'
 
 const inter = Inter({ subsets: ["latin"] })
@@ -70,6 +73,7 @@ export default function RootLayout({
           }}
         />
       </body>
+       <NotificationContainer />
     </html>
   )
 }
