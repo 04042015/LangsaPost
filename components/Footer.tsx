@@ -1,15 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Facebook, Twitter, Instagram, Youtube, Mail, Phone, MapPin } from "lucide-react"
-
-const categories = [
-  { name: "Politik", slug: "politik" },
-  { name: "Ekonomi", slug: "ekonomi" },
-  { name: "Olahraga", slug: "olahraga" },
-  { name: "Teknologi", slug: "teknologi" },
-  { name: "Internasional", slug: "internasional" },
-  { name: "Nasional", slug: "nasional" },
-]
+import { categories } from "@/lib/categories"
 
 export default function Footer() {
   return (
