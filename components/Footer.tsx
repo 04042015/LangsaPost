@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import { Facebook, Twitter, Instagram, Youtube, Mail, Phone, MapPin } from "lucide-react"
 
 const categories = [
@@ -18,8 +19,8 @@ export default function Footer() {
           {/* Brand */}
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-3 mb-4">
-              <div className="w-12 h-12 bg-red-500 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">LP</span>
+              <div className="w-12 h-12 relative">
+                <Image src="/logo.png" alt="LangsaPost Logo" fill className="object-contain" />
               </div>
               <div>
                 <h3 className="text-2xl font-bold">LangsaPost</h3>
@@ -128,7 +129,6 @@ export default function Footer() {
         <div className="border-t border-gray-800 mt-8 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm">&copy; 2025 LangsaPost. Semua hak cipta dilindungi undang-undang.</p>
-            <p className="text-gray-400 text-sm mt-2 md:mt-0">Dibuat dengan ❤️ untuk Indonesia</p>
           </div>
         </div>
       </div>
