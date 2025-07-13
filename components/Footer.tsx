@@ -28,14 +28,16 @@ export default function Footer() {
     href="https://www.facebook.com/share/1CBZwUcfhN/"
     target="_blank"
     rel="noopener noreferrer"
+    aria-label="Facebook LangsaPost"
     className="text-gray-400 hover:text-white transition-colors"
   >
     <Facebook className="w-5 h-5" />
   </a>
   <a
-    href="#"
+    href="https://x.com/langsapost"
     target="_blank"
     rel="noopener noreferrer"
+    aria-label="Twitter (X) LangsaPost"
     className="text-gray-400 hover:text-white transition-colors"
   >
     <Twitter className="w-5 h-5" />
@@ -44,19 +46,22 @@ export default function Footer() {
     href="https://www.instagram.com/langsapost.id?igsh=MXh3dGNsbnJ3eGlkMQ=="
     target="_blank"
     rel="noopener noreferrer"
+    aria-label="Instagram LangsaPost"
     className="text-gray-400 hover:text-white transition-colors"
   >
     <Instagram className="w-5 h-5" />
   </a>
   <a
-    href="#"
+    href="https://www.youtube.com/channel/UCm18EB9_UZb44GWLwaN1X4g"
     target="_blank"
     rel="noopener noreferrer"
+    aria-label="YouTube LangsaPost"
     className="text-gray-400 hover:text-white transition-colors"
   >
     <Youtube className="w-5 h-5" />
   </a>
 </div>
+
           </div>
 
           {/* Categories */}
