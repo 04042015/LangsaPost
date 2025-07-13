@@ -29,7 +29,11 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-  generator: 'v0.dev'
+  generator: "v0.dev",
+  icons: {
+    icon: "/favicon.ico", // ✅ Tambahan favicon di metadata
+    apple: "/icon-192x192.png",
+  },
 }
 
 export default function RootLayout({
