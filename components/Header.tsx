@@ -2,6 +2,7 @@
 
 import type React from "react"
 
+import Image from "next/image"
 import Link from "next/link"
 import { Search, Menu, X } from "lucide-react"
 import { useState } from "react"
@@ -27,8 +28,8 @@ export default function Header() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-red-500 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">LP</span>
+            <div className="w-12 h-12 relative">
+               <Image src="/logo.png" alt="LangsaPost Logo" fill className="object-contain" />
             </div>
             <div>
               <h1 className="text-2xl font-bold text-red-500">LangsaPost</h1>
