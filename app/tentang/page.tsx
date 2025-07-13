@@ -4,8 +4,9 @@ import Footer from "@/components/Footer"
 import { Users, Target, Award, Heart, BrainCircuit, Bot, Sparkles } from "lucide-react"
 
 export default function TentangPage() 
-{ return 
-    ( <div className="min-h-screen bg-gray-50"> <Header /> <CategoryNav />
+{ 
+  return ( 
+   <div className="min-h-screen bg-gray-50"> <Header /> <CategoryNav />
 
 <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     {/* Hero Section */}
