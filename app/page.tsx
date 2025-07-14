@@ -1,30 +1,28 @@
-'use client' 
+'use client'
 
 import { useEffect } from 'react'
 import Header from "@/components/Header"
-import DynamicClientWidgets from './_components/DynamicClientWidgets'
+// import DynamicClientWidgets from './_components/DynamicClientWidgets'
 import CategoryNav from "@/components/CategoryNav"
 import Link from "next/link"
-import LiveBreakingNews from "@/components/LiveBreakingNews";
-import WeatherWidget from "@/components/WeatherWidget"
-import LivePolls from "@/components/LivePolls"
-import AIRecommendations from "@/components/AIRecommendations"
-import SocialMediaFeed from "@/components/SocialMediaFeed"
-import ReadingAchievements from "@/components/ReadingAchievements"
-import InteractiveChart from "@/components/InteractiveChart"
+// import LiveBreakingNews from "@/components/LiveBreakingNews"
+// import WeatherWidget from "@/components/WeatherWidget"
+// import LivePolls from "@/components/LivePolls"
+// import AIRecommendations from "@/components/AIRecommendations"
+// import SocialMediaFeed from "@/components/SocialMediaFeed"
+// import ReadingAchievements from "@/components/ReadingAchievements"
+// import InteractiveChart from "@/components/InteractiveChart"
 import ArticleCard from "@/components/ArticleCard"
 import Footer from "@/components/Footer"
-import PWAInstallPrompt from "@/components/PWAInstallPrompt"
-import LiveChat from "@/components/SmartChatbot"
-import TrendingTopics from "@/components/TrendingTopics";
+// import PWAInstallPrompt from "@/components/PWAInstallPrompt"
+// import LiveChat from "@/components/SmartChatbot"
+// import TrendingTopics from "@/components/TrendingTopics"
 
-// Sample data - in real app, this would come from a database
 const articles = [
   {
     id: 1,
     title: "Presiden Jokowi Resmikan Infrastruktur Baru di Aceh",
-    excerpt:
-      "Presiden Joko Widodo meresmikan pembangunan infrastruktur strategis di Provinsi Aceh yang diharapkan dapat meningkatkan perekonomian daerah dan kesejahteraan masyarakat.",
+    excerpt: "Presiden Joko Widodo meresmikan pembangunan infrastruktur strategis di Provinsi Aceh yang diharapkan dapat meningkatkan perekonomian daerah dan kesejahteraan masyarakat.",
     category: "Politik",
     categorySlug: "politik",
     author: "Ahmad Rizki",
@@ -37,8 +35,7 @@ const articles = [
   {
     id: 2,
     title: "5 Tips Agar Imun Tubuh Tetap Kuat Tanpa Obat",
-    excerpt:
-      "Sistem imun yang kuat adalah pertahanan utama tubuh dari penyakit. Berikut cara alami meningkatkan imunitas tubuh Anda tanpa bergantung pada obat-obatan.",
+    excerpt: "Sistem imun yang kuat adalah pertahanan utama tubuh dari penyakit. Berikut cara alami meningkatkan imunitas tubuh Anda tanpa bergantung pada obat-obatan.",
     category: "Kesehatan",
     categorySlug: "kesehatan",
     author: "Dr. Sarah Amelia",
@@ -50,8 +47,7 @@ const articles = [
   {
     id: 3,
     title: "Perkembangan Teknologi AI di Indonesia 2025",
-    excerpt:
-      "Artificial Intelligence semakin berkembang pesat di Indonesia. Berbagai sektor mulai mengadopsi teknologi ini untuk meningkatkan efisiensi dan produktivitas.",
+    excerpt: "Artificial Intelligence semakin berkembang pesat di Indonesia. Berbagai sektor mulai mengadopsi teknologi ini untuk meningkatkan efisiensi dan produktivitas.",
     category: "Teknologi",
     categorySlug: "teknologi",
     author: "Tech Editor",
@@ -63,8 +59,7 @@ const articles = [
   {
     id: 4,
     title: "Ekonomi Indonesia Tumbuh 5.2% di Kuartal Kedua",
-    excerpt:
-      "Badan Pusat Statistik melaporkan pertumbuhan ekonomi Indonesia mencapai 5.2% pada kuartal kedua 2025, didorong oleh konsum domestik yang kuat.",
+    excerpt: "Badan Pusat Statistik melaporkan pertumbuhan ekonomi Indonesia mencapai 5.2% pada kuartal kedua 2025, didorong oleh konsum domestik yang kuat.",
     category: "Ekonomi",
     categorySlug: "ekonomi",
     author: "Ekonomi Desk",
@@ -76,8 +71,7 @@ const articles = [
   {
     id: 5,
     title: "Timnas Indonesia Lolos ke Semifinal Piala Asia",
-    excerpt:
-      "Tim nasional sepak bola Indonesia berhasil melaju ke semifinal Piala Asia setelah mengalahkan Thailand dengan skor 2-1 dalam pertandingan yang dramatis.",
+    excerpt: "Tim nasional sepak bola Indonesia berhasil melaju ke semifinal Piala Asia setelah mengalahkan Thailand dengan skor 2-1 dalam pertandingan yang dramatis.",
     category: "Olahraga",
     categorySlug: "olahraga",
     author: "Sports Desk",
@@ -89,8 +83,7 @@ const articles = [
   {
     id: 6,
     title: "Festival Budaya Langsa Menarik Ribuan Wisatawan",
-    excerpt:
-      "Festival Budaya Langsa 2025 berhasil menarik ribuan wisatawan domestik dan mancanegara untuk menyaksikan pertunjukan seni dan budaya tradisional Aceh.",
+    excerpt: "Festival Budaya Langsa 2025 berhasil menarik ribuan wisatawan domestik dan mancanegara untuk menyaksikan pertunjukan seni dan budaya tradisional Aceh.",
     category: "Langsa",
     categorySlug: "langsa",
     author: "Langsa Reporter",
@@ -104,30 +97,26 @@ const articles = [
 export default function HomePage() {
   const featuredArticle = articles.find((article) => article.featured)
   const regularArticles = articles.filter((article) => !article.featured)
-  
+
   return (
-  <div className="min-h-screen bg-gray-50">
-    <Header />
-    <CategoryNav />
-      <LiveBreakingNews />
+    <div className="min-h-screen bg-gray-50">
+      <Header />
+      <CategoryNav />
+      {/* <LiveBreakingNews /> */}
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Featured Article */}
         {featuredArticle && (
           <div className="mb-12">
             <ArticleCard article={featuredArticle} variant="featured" />
           </div>
         )}
 
-        {/* Main Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Left Content */}
           <div className="lg:col-span-3 space-y-12">
-            {/* Latest News Section */}
             <section>
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-2xl font-bold text-gray-900">Berita Terkini</h2>
-              <Link href="/artikel" className="text-red-500 hover:text-red-600 font-medium flex items-center">
+                <Link href="/artikel" className="text-red-500 hover:text-red-600 font-medium flex items-center">
                   Lihat Semua →
                 </Link>
               </div>
@@ -139,17 +128,14 @@ export default function HomePage() {
               </div>
             </section>
 
-            {/* Interactive Analytics */}
-            <section>
+            {/* <section>
               <InteractiveChart />
             </section>
 
-            {/* Live Polls */}
             <section>
               <LivePolls />
-            </section>
+            </section> */}
 
-            {/* Popular Articles */}
             <section>
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Artikel Populer</h2>
               <div className="bg-white rounded-lg shadow-sm border p-6">
@@ -186,17 +172,15 @@ export default function HomePage() {
             </section>
           </div>
 
-          {/* Right Sidebar */}
           <div className="lg:col-span-1 space-y-6">
-            <WeatherWidget />
-            <TrendingTopics />
-            <AIRecommendations />
-            <SocialMediaFeed />
-            <ReadingAchievements />
+            {/* <WeatherWidget /> */}
+            {/* <TrendingTopics /> */}
+            {/* <AIRecommendations /> */}
+            {/* <SocialMediaFeed /> */}
+            {/* <ReadingAchievements /> */}
           </div>
         </div>
 
-        {/* Newsletter Subscription */}
         <section className="mt-16 bg-gradient-to-r from-red-500 to-red-600 rounded-lg p-8 text-white text-center">
           <h2 className="text-2xl font-bold mb-4">Berlangganan Newsletter</h2>
           <p className="mb-6 opacity-90">Dapatkan berita terkini langsung di email Anda setiap hari</p>
@@ -213,8 +197,8 @@ export default function HomePage() {
         </section>
       </main>
 
-      <PWAInstallPrompt />
-      <LiveChat />
+      {/* <PWAInstallPrompt /> */}
+      {/* <LiveChat /> */}
       <Footer />
     </div>
   )
