@@ -36,6 +36,7 @@ export const metadata: Metadata = {
     apple: "/icon-192x192.png",
   },
 }
+export const dynamic = "force-dynamic"
 
 export default function RootLayout({
   children,
