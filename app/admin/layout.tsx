@@ -1,20 +1,26 @@
-import type React from "react"
-import { redirect } from "next/navigation"
-import { createClient } from "@/utils/supabase/server"
+"use client"
 
-export default async function AdminLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  const supabase = await createClient()
+import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
+import { createClient } from "@/utils/supabase/client"
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+export default function AdminLayout({ children }: { children: React.ReactNode }) {
+  const [loading, setLoading] = useState(true)
+  const router = useRouter()
+  const supabase = createClient()
 
-  if (!user) {
-    redirect("/auth/login")
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (!session) {
+        router.push("/auth/login")
+      } else {
+        setLoading(false)
+      }
+    })
+  }, [])
+
+  if (loading) {
+    return <div className="p-10 text-center">Memuat dashboard...</div>
   }
 
   return <>{children}</>
