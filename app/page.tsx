@@ -2,11 +2,11 @@
 
 import { useEffect } from 'react'
 import Header from "@/components/Header"
-// import DynamicClientWidgets from './_components/DynamicClientWidgets'
+import DynamicClientWidgets from './_components/DynamicClientWidgets'
 import CategoryNav from "@/components/CategoryNav"
 import Link from "next/link"
-// import LiveBreakingNews from "@/components/LiveBreakingNews"
-// import WeatherWidget from "@/components/WeatherWidget"
+import LiveBreakingNews from "@/components/LiveBreakingNews"
+import WeatherWidget from "@/components/WeatherWidget"
 // import LivePolls from "@/components/LivePolls"
 // import AIRecommendations from "@/components/AIRecommendations"
 // import SocialMediaFeed from "@/components/SocialMediaFeed"
@@ -15,8 +15,8 @@ import Link from "next/link"
 import ArticleCard from "@/components/ArticleCard"
 import Footer from "@/components/Footer"
 // import PWAInstallPrompt from "@/components/PWAInstallPrompt"
-// import LiveChat from "@/components/SmartChatbot"
-// import TrendingTopics from "@/components/TrendingTopics"
+import LiveChat from "@/components/SmartChatbot"
+import TrendingTopics from "@/components/TrendingTopics"
 
 const articles = [
   {
