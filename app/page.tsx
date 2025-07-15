@@ -173,10 +173,10 @@ export default function HomePage() {
           </div>
 
           <div className="lg:col-span-1 space-y-6">
-            {/* <WeatherWidget /> */}
-            {/* <TrendingTopics /> */}
+             <WeatherWidget />
+             <TrendingTopics />
             {/* <AIRecommendations /> */}
-            {/* <SocialMediaFeed /> */}
+             <SocialMediaFeed />
             {/* <ReadingAchievements /> */}
           </div>
         </div>
