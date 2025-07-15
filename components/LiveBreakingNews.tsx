@@ -14,7 +14,7 @@ export default function LiveBreakingNews() {
   useEffect(() => {
     // TODO: fetch breaking-news headline from your API / Supabase
     // Demo headline
-    setHeadline("Breaking: Pemerintah umumkan inisiatif ekonomi digital nasional.")
+    setHeadline("Breaking: Follow Media Sosial kami lain nya @LANGSAPOST.ID.")
   }, [])
 
   if (!headline) return null
