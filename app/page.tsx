@@ -199,7 +199,6 @@ export default function HomePage() {
 
       {/* <PWAInstallPrompt /> */}
        <LiveChat />
-      <Footer />
     </div>
   )
 }
