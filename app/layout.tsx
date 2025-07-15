@@ -1,13 +1,14 @@
-// app/layout.tsx
+import "./globals.css"
+
 export const metadata = {
-  title: 'LangsaPost',
-  description: 'Portal Berita Langsa',
+  title: "LangsaPost",
+  description: "Portal berita Langsa",
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="id">
-      <body>{children}</body>
+      <body className="bg-white text-gray-900">{children}</body>
     </html>
   )
 }
