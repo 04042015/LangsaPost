@@ -56,22 +56,7 @@ export function ArticleForm({ article, onSuccess, onCancel }: ArticleFormProps) 
   fetchCategories()
 }, [])
     
-    useEffect(() => {
-  if (article) {
-    setFormData({
-      title: article.title,
-      slug: article.slug,
-      excerpt: article.excerpt || "",
-      content: article.content || "",
-      author: article.author || "",
-      category: article.category || "",
-      tags: article.tags || [],
-      featured_image: article.featured_image || "",
-      meta_title: article.meta_title || "",
-      meta_description: article.meta_description || "",
-    })
-  }
-}, [article])
+    
   const fetchCategories = async () => {
   const { data, error } = await supabase.from("categories").select("*")
   if (error) console.error("FETCH CATEGORIES ERROR:", error)
@@ -104,7 +89,22 @@ export function ArticleForm({ article, onSuccess, onCancel }: ArticleFormProps) 
   const removeTag = (tagToRemove: string) => {
     setFormData((prev) => ({
       ...prev,
-      tags: prev.tags.filter((tag) => tag !== tagToRemove),
+      tags: prev.tags.filter((tag) => tag !== tagToRemove)useEffect(() => {
+  if (article) {
+    setFormData({
+      title: article.title,
+      slug: article.slug,
+      excerpt: article.excerpt || "",
+      content: article.content || "",
+      author: article.author || "",
+      category: article.category || "",
+      tags: article.tags || [],
+      featured_image: article.featured_image || "",
+      meta_title: article.meta_title || "",
+      meta_description: article.meta_description || "",
+    })
+  }
+}, [article]) // ✅ penutup lengkap,
     }))
   }
 
