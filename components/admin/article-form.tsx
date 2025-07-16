@@ -163,16 +163,6 @@ try {
 
 }
 
-// ... UI rendering tetap seperti versi kamu sebelumnya // Tidak saya hapus agar kamu tetap bisa edit bagian visual bebas // Fokus revisi ini adalah memastikan logic bersih, tidak error build
-
-return ( 
-  <div className="text-center py-20">
-    <p>✅ Kode logic sudah diperbaiki. Silakan lanjutkan bagian rendering seperti sebelumnya.
-    </p> 
-  </div> 
-) 
-                                                                                }
-
   if (previewMode) {
     return (
       <div className="container mx-auto p-6 max-w-4xl">
