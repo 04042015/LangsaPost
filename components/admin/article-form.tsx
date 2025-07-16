@@ -125,19 +125,27 @@ export function ArticleForm({ article, onSuccess, onCancel }: ArticleFormProps) 
   status,
   featured: false,
   views: 0,
+  tags: formData.tags, // <-- Tambahkan ini
   reading_time: calculateReadingTime(formData.content),
+  meta_title: formData.meta_title || formData.title, // fallback
+  meta_description: formData.meta_description || formData.excerpt, // fallback
   published_at: status === "published" ? new Date().toISOString() : null,
   updated_at: new Date().toISOString(),
       }
 
       if (article) {
-        const { error } = await supabase.from("articles").update(articleData).eq("id", article.id)
+  const { error } = await supabase
+    .from("articles")
+    .update(articleData)
+    .eq("id", article.id)
 
-        if (error) throw error
-      } else {
-        const { error } = await supabase.from("articles").insert([articleData])
+  if (error) throw error
+} else {
+  const { error } = await supabase
+    .from("articles")
+    .insert([articleData])
 
-        if (error) throw error
+  if (error) throw error
       }
 
       toast({
