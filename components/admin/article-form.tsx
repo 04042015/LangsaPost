@@ -10,8 +10,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "
 import { Badge } from "@/components/ui/badge" 
 import { ArrowLeft, Save, Eye, Send, X } from "lucide-react" 
 import { createClient } from "@/utils/supabase/client" 
-import type { Article, Category } from "@/lib/types" import { RichTextEditor } from "./rich-text-editor" 
-import { ImageUpload } from "./image-upload" import { generateSlug, calculateReadingTime } from "@/lib/utils/slug" 
+import type { Article, Category } from "@/lib/types" 
+import { RichTextEditor } from "./rich-text-editor" 
+import { ImageUpload } from "./image-upload" 
+import { generateSlug, calculateReadingTime } from "@/lib/utils/slug" 
 import { toast } from "@/hooks/use-toast"
 
 interface ArticleFormProps {
