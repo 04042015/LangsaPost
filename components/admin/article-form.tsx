@@ -115,12 +115,19 @@ export function ArticleForm({ article, onSuccess, onCancel }: ArticleFormProps) 
       if (!user) throw new Error("Not authenticated")
 
       const articleData = {
-        ...formData,
-        status,
-        author_id: user.id,
-        reading_time: calculateReadingTime(formData.content),
-        published_at: status === "published" ? new Date().toISOString() : null,
-        updated_at: new Date().toISOString(),
+  title: formData.title,
+  slug: formData.slug,
+  content: formData.content,
+  excerpt: formData.excerpt,
+  category: formData.category,
+  author: user.id,
+  image_url: formData.featured_image,
+  status,
+  featured: false,
+  views: 0,
+  reading_time: calculateReadingTime(formData.content),
+  published_at: status === "published" ? new Date().toISOString() : null,
+  updated_at: new Date().toISOString(),
       }
 
       if (article) {
