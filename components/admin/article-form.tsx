@@ -1,28 +1,111 @@
 "use client"
 
-import { useState, useEffect } from "react" import { Button } from "@/components/ui/button" import { Input } from "@/components/ui/input" import { Label } from "@/components/ui/label" import { Textarea } from "@/components/ui/textarea" import { Card, CardContent, CardDescription, CardHeader, CardTitle, } from "@/components/ui/card" import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select" import { Badge } from "@/components/ui/badge" import { ArrowLeft, Save, Eye, Send, X } from "lucide-react" import { createClient } from "@/utils/supabase/client" import type { Article, Category } from "@/lib/types" import { RichTextEditor } from "./rich-text-editor" import { ImageUpload } from "./image-upload" import { generateSlug, calculateReadingTime } from "@/lib/utils/slug" import { toast } from "@/hooks/use-toast"
+import { useState, useEffect } from "react" 
+import { Button } from "@/components/ui/button" 
+import { Input } from "@/components/ui/input" 
+import { Label } from "@/components/ui/label" 
+import { Textarea } from "@/components/ui/textarea" 
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, } from "@/components/ui/card" 
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select" 
+import { Badge } from "@/components/ui/badge" 
+import { ArrowLeft, Save, Eye, Send, X } from "lucide-react" 
+import { createClient } from "@/utils/supabase/client" 
+import type { Article, Category } from "@/lib/types" import { RichTextEditor } from "./rich-text-editor" 
+import { ImageUpload } from "./image-upload" import { generateSlug, calculateReadingTime } from "@/lib/utils/slug" 
+import { toast } from "@/hooks/use-toast"
 
-interface ArticleFormProps { article?: Article | null onSuccess: () => void onCancel: () => void }
+interface ArticleFormProps {
+  article?: Article | null 
+  onSuccess: () => void 
+  onCancel: () => void 
+}
 
-export function ArticleForm({ article, onSuccess, onCancel }: ArticleFormProps) { const [formData, setFormData] = useState({ title: "", slug: "", content: "", excerpt: "", featured_image: "", status: "draft" as "draft" | "published", category: "", tags: [] as string[], meta_title: "", meta_description: "", }) const [categories, setCategories] = useState<Category[]>([]) const [tagInput, setTagInput] = useState("") const [loading, setLoading] = useState(false) const [previewMode, setPreviewMode] = useState(false)
+export function ArticleForm({ article, onSuccess, onCancel }: ArticleFormProps) { 
+  const [formData, setFormData] = 
+    useState({ 
+      title: "", 
+      slug: "", 
+      content: "", 
+      excerpt: "", 
+      featured_image: "", 
+      status: "draft" as "draft" | "published", 
+      category: "", 
+      tags: [] as string[], 
+      meta_title: "", 
+      meta_description: "", 
+    }) 
+    const [categories, setCategories] = useState<Category[]>([]) 
+    const [tagInput, setTagInput] = useState("") 
+    const [loading, setLoading] = useState(false) 
+    const [previewMode, setPreviewMode] = useState(false)
 
 const supabase = createClient()
 
-useEffect(() => { const fetchCategories = async () => { try { const { data, error } = await supabase.from("categories").select("*") if (error) { console.error("FETCH CATEGORIES ERROR:", error) } else { setCategories(data || []) } } catch (error) { console.error("Error fetching categories:", error) } }
+useEffect(() => 
+  { const fetchCategories = async () => { 
+    try { 
+      const { data, error } = await supabase.from("categories").select("*") 
+        if (error) 
+        { console.error("FETCH CATEGORIES ERROR:", error) } 
+        else { setCategories(data || [])  } }
+    catch (error) { 
+      console.error("Error fetching categories:", error) 
+    } 
+  }
 
 fetchCategories()
 
 }, [])
 
-useEffect(() => { if (article) { setFormData({ title: article.title, slug: article.slug, excerpt: article.excerpt || "", content: article.content || "", category: article.category || "", tags: article.tags || [], featured_image: article.featured_image || "", meta_title: article.meta_title || "", meta_description: article.meta_description || "", status: article.status || "draft", }) } }, [article])
+useEffect(() => { 
+  if (article) { 
+    setFormData({ 
+      title: article.title, 
+      slug: article.slug, 
+      excerpt: article.excerpt || "", 
+      content: article.content || "", 
+      category: article.category || "", 
+      tags: article.tags || [], 
+      featured_image: article.featured_image || "", 
+      meta_title: article.meta_title || "", 
+      meta_description: article.meta_description || "", 
+      status: article.status || "draft",
+    })
+  } 
+}, [article])
 
-const handleTitleChange = (title: string) => { setFormData((prev) => ({ ...prev, title, slug: !article ? generateSlug(title) : prev.slug, })) }
+const handleTitleChange = (title: string) => { 
+  setFormData((prev) => ({ 
+    ...prev, 
+    title,
+    slug: !article ? generateSlug(title) : prev.slug, 
+  })) 
+}
 
-const addTag = () => { if (tagInput.trim() && !formData.tags.includes(tagInput.trim())) { setFormData((prev) => ({ ...prev, tags: [...prev.tags, tagInput.trim()], })) setTagInput("") } }
+const addTag = () => { 
+  if (tagInput.trim() && !formData.tags.includes(tagInput.trim())) {
+    setFormData((prev) => ({ 
+      ...prev,
+      tags: [...prev.tags, tagInput.trim()], 
+    })) 
+      setTagInput("") 
+  }
+}
 
-const removeTag = (tagToRemove: string) => { setFormData((prev) => ({ ...prev, tags: prev.tags.filter((tag) => tag !== tagToRemove), })) }
+const removeTag = (tagToRemove: string) => { 
+  setFormData((prev) => ({ 
+    ...prev,
+    tags: prev.tags.filter((tag) => tag !== tagToRemove), })) }
 
-const handleSubmit = async (status: "draft" | "published") => { if (!formData.title.trim()) { toast({ title: "Error", description: "Title is required", variant: "destructive", }) return }
+const handleSubmit = async (status: "draft" | "published") => { 
+  if (!formData.title.trim()) { 
+    toast({ 
+      title: "Error", 
+      description: "Title is required", 
+      variant: "destructive", 
+    }) 
+      return 
+  }
 
 setLoading(true)
 
