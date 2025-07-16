@@ -73,11 +73,11 @@ export function ArticleForm({ article, onSuccess, onCancel }: ArticleFormProps) 
   }, [article])
 
   const fetchCategories = async () => {
-    try {
-      const { data, error } = await supabase.from("categories").select("*").order("name")
-
-      if (error) throw error
-      setCategories(data || [])
+  const { data, error } = await supabase.from("categories").select("*")
+  if (error) console.error("FETCH CATEGORIES ERROR:", error)
+  else console.log("Fetched Categories:", data)
+  setCategories(data || [])
+    }
     } catch (error) {
       console.error("Error fetching categories:", error)
     }
