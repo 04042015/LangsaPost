@@ -56,22 +56,22 @@ export function ArticleForm({ article, onSuccess, onCancel }: ArticleFormProps) 
   fetchCategories()
 }, [])
     
-    if (article) {
-      setFormData({
-        title: article.title,
-        slug: article.slug,
-        content: article.content || "",
-        excerpt: article.excerpt || "",
-        featured_image: article.featured_image || "",
-        status: article.status,
-        category: article.category || "",
-        tags: article.tags || [],
-        meta_title: article.meta_title || "",
-        meta_description: article.meta_description || "",
-      })
-    }
-  }, [article])
-
+    useEffect(() => {
+  if (article) {
+    setFormData({
+      title: article.title,
+      slug: article.slug,
+      excerpt: article.excerpt || "",
+      content: article.content || "",
+      author: article.author || "",
+      category: article.category || "",
+      tags: article.tags || [],
+      featured_image: article.featured_image || "",
+      meta_title: article.meta_title || "",
+      meta_description: article.meta_description || "",
+    })
+  }
+}, [article])
   const fetchCategories = async () => {
   const { data, error } = await supabase.from("categories").select("*")
   if (error) console.error("FETCH CATEGORIES ERROR:", error)
