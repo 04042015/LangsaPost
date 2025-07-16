@@ -1,15 +1,24 @@
 "use client"
 
+import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
 import dynamic from "next/dynamic"
-import { useState } from "react"
-import MdEditor from "react-markdown-editor-lite"
 import MarkdownIt from "markdown-it"
+
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { createClient } from "@/utils/supabase/client"
 import { toast } from "@/hooks/use-toast"
-import { useRouter } from "next/navigation"
 
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select"
+
+const MdEditor = dynamic(() => import("react-markdown-editor-lite"), { ssr: false })
 const mdParser = new MarkdownIt()
 const supabase = createClient()
 
@@ -18,7 +27,17 @@ export default function TambahArtikel() {
   const [category, setCategory] = useState("")
   const [content, setContent] = useState("")
   const [author, setAuthor] = useState("")
+  const [categories, setCategories] = useState<{ id: number; name: string; slug: string }[]>([])
+
   const router = useRouter()
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const { data, error } = await supabase.from("categories").select("*").order("name")
+      if (!error && data) setCategories(data)
+    }
+    fetchCategories()
+  }, [])
 
   const handleImageUpload = async (file: File) => {
     const fileExt = file.name.split(".").pop()
@@ -36,7 +55,7 @@ export default function TambahArtikel() {
   }
 
   const handleSubmit = async () => {
-    if (!title || !content || !author) {
+    if (!title || !content || !author || !category) {
       toast({ title: "Harap isi semua field", variant: "destructive" })
       return
     }
@@ -65,7 +84,23 @@ export default function TambahArtikel() {
       <h1 className="text-2xl font-bold mb-4">Tambah Artikel</h1>
       <div className="space-y-4">
         <Input placeholder="Judul Artikel" value={title} onChange={(e) => setTitle(e.target.value)} />
-        <Input placeholder="Kategori" value={category} onChange={(e) => setCategory(e.target.value)} />
+
+        <div>
+          <label className="block text-sm font-medium mb-1">Kategori</label>
+          <Select value={category} onValueChange={setCategory}>
+            <SelectTrigger>
+              <SelectValue placeholder="Pilih kategori" />
+            </SelectTrigger>
+            <SelectContent>
+              {categories.map((cat) => (
+                <SelectItem key={cat.id} value={cat.slug}>
+                  {cat.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
         <Input placeholder="Penulis" value={author} onChange={(e) => setAuthor(e.target.value)} />
 
         <MdEditor
@@ -82,4 +117,4 @@ export default function TambahArtikel() {
       </div>
     </div>
   )
-}
+             }
