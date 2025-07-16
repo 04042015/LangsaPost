@@ -43,7 +43,19 @@ export function ArticleForm({ article, onSuccess, onCancel }: ArticleFormProps) 
   const supabase = createClient()
 
   useEffect(() => {
-    fetchCategories()
+  const fetchCategories = async () => {
+    const { data, error } = await supabase.from("categories").select("*")
+    if (error) {
+      console.error("FETCH CATEGORIES ERROR:", error)
+    } else {
+      console.log("Categories data:", data)
+    }
+    setCategories(data || [])
+  }
+
+  fetchCategories()
+}, [])
+    
     if (article) {
       setFormData({
         title: article.title,
